@@ -3,63 +3,110 @@
 **Unidad de Aprendizaje:** Álgebra Lineal Avanzada  
 **Institución:** Instituto Politécnico Nacional (IPN) — Escuela Superior de Física y Matemáticas (ESFM)  
 **Texto Base Obligatorio:** Stephen H. Friedberg, Arnold J. Insel & Lawrence E. Spence, *Álgebra lineal* (1ra Edición en español, Publicaciones Cultural / CECSA / Prentice-Hall, México, 1982).  
+**Plataforma Oficial del Curso:** Libro Digital Interactivo (`index.html` / GitHub Pages)
 
 ---
 
 ## 🎯 Objetivos de Aprendizaje de la Unidad 4
 
-Al finalizar esta unidad, el alumno será capaz de:
-1. Representar transformaciones lineales mediante matrices relativas a bases ordenadas arbitrarias y calcular matrices de cambio de base.
-2. Determinar si un operador lineal o matriz es diagonalizable calculando sus multiplicidades algebraicas y geométricas, y construyendo bases de eigenvectores.
-3. Descomponer espacios vectoriales en subespacios $T$-invariantes y representar operadores en sumas directas de bloques diagonales.
-4. Aplicar el **Teorema de Cayley-Hamilton** para anular matrices y operadores, y calcular el **polinomio mínimo** $p(t)$.
-5. Determinar la **Forma Canónica de Jordan** $J$ de cualquier matriz u operador cuyo polinomio característico se escinda, utilizando diagramas de puntos (*dot diagrams*), construyendo bases canónicas de Jordan $\beta$ formadas por ciclos de eigenvectores generalizados y hallando la matriz invertible de paso $Q$ tal que $J = Q^{-1}AQ$.
+Al completar esta unidad y el estudio del Libro Digital Interactivo, el alumno será capaz de:
+1. **Representar Transformaciones Lineales:** Construir matrices de transformación $[T]_\beta^\gamma$ respecto a bases ordenadas arbitrarias y aplicar matrices de cambio de base para transformaciones similares ($B = Q^{-1}AQ$).
+2. **Evaluar Diagonalizabilidad:** Calcular polinomios característicos $f(t)$, eigenvalores y eigenspacios $E_\lambda = N(T - \lambda I)$, contrastando la multiplicidad geométrica ($\dim(E_\lambda)$) frente a la algebraica ($m_\lambda$) para determinar si un operador o matriz es diagonalizable.
+3. **Analizar Subespacios Invariantes:** Descomponer espacios vectoriales mediante operadores restricción $T_W$, sumas directas $V = W_1 \oplus \dots \oplus W_k$ y representaciones diagonales por bloques $A_1 \oplus \dots \oplus A_k$.
+4. **Dominar el Teorema de Cayley-Hamilton y Polinomio Mínimo:** Anular operadores y matrices mediante sus polinomios característicos ($f(T) = T_0$, $f(A) = O$), y calcular el polinomio mínimo $p(t)$ para verificar diagonalizabilidad por factores lineales simples.
+5. **Construir la Forma Canónica de Jordan:** Determinar la forma canónica de Jordan $J$, construir diagramas de puntos (*dot diagrams*), ensamblar bases canónicas de Jordan $\beta$ formadas por ciclos de eigenvectores generalizados y calcular la matriz invertible de paso $Q$ tal que $J = Q^{-1}AQ$.
 
 ---
 
-## 📅 Cronograma y Ruta de Estudio Semanal
+## 📖 Mapeo Directo: Guía de Estudio $\longleftrightarrow$ Libro Digital Interactivo
 
-| Sesión | Tema Principal | Secciones Friedberg | Teoremas Clave | Entregables y Prácticas |
-| :---: | :--- | :--- | :--- | :--- |
-| **1** | **Bases ordenadas y Representación Matricial** | §2.2 (pp. 76–83), §2.5 (pp. 100–108) | Teoremas 1 al 14 | Cálculo de $[T]_\beta^\gamma$ para operadores diferenciales e integrales en $P_n(\mathbb{R})$. |
-| **2** | **Diagonalizabilidad y Eigenspacios** | §5.1 (pp. 245–259), §5.2 (pp. 263–277) | Teoremas 15 al 31 | Determinación de multiplicidades algebraicas $m_\lambda$ y geométricas $\dim(E_\lambda)$. |
-| **3** | **Subespacios Invariantes y Restricciones** | §5.4 (pp. 297–304) | Teoremas 32 al 34 | Descomposición en sumas directas $V = W_1 \oplus \dots \oplus W_k$ y matrices por bloques. |
-| **4** | **Subespacios Cíclicos y Cayley-Hamilton** | §5.5 (pp. 305–310) | Teoremas 35 y 36 | Verificación de $f(A) = O$ y cálculo de inversas de matrices mediante $A^{-1} = -\frac{1}{a_0}(A^{n-1} + \dots + a_1 I)$. |
-| **5** | **Polinomio Mínimo y Criterio de Diagonalización** | §5.6 (pp. 311–318) | Teoremas 37 al 41 | Cálculo de $p(t)$ a partir de $f(t)$ y verificación de diagonalizabilidad mediante raíces simples. |
-| **6** | **Eigenvectores Generalizados y Ciclos** | §6.1 (pp. 327–342) | Teoremas 42 al 46 | Construcción de eigenspacios generalizados $K_\lambda$ y ciclos $\gamma = \{(T-\lambda I)^{p-1}x, \dots, x\}$. |
-| **7** | **Diagramas de Puntos y Forma Canónica de Jordan** | §6.2 (pp. 339–359) | Teoremas 47 al 49 | Construcción de $J$, diagramas de puntos, base $\beta$ y matriz invertible $Q$ tal que $J = Q^{-1}AQ$. |
+Todas las lecturas, definiciones, teoremas y ejemplos para esta unidad están integrados de manera correlativa en la plataforma del curso:
+
+### 🔹 Módulo 4.0.1: Bases Ordenadas y Representación Matricial (Friedberg §2.2 y §2.5)
+* **Sección en Libro Digital:** `tema-4-0-1`
+* **Conceptos Fundamentales:** Base ordenada ($\beta \neq \gamma$), vector coordenado $[x]_\beta$, matriz de transformación $[T]_\beta^\gamma$, y teorema de cambio de base $[T]_\beta = Q^{-1}[T]_\alpha Q$.
+* **Teoremas del Libro Digital:** Teoremas 1 al 14.
+* **Ejemplos Resueltos Paso a Paso:** Ejemplos 1 al 16 (Operador derivada $P_3 \to P_2$, integrales, transformaciones $\mathbb{R}^2 \to \mathbb{R}^3$, reflexiones y rotaciones).
+* **Herramienta Interactiva:** *Simulador Interactivo de Coordenadas y Representación Matricial*.
+
+### 🔹 Módulo 4.0.2: Diagonalizabilidad y Eigenspacios (Friedberg §5.1)
+* **Sección en Libro Digital:** `tema-4-0-2`
+* **Conceptos Fundamentales:** Polinomio característico $f(t) = \det(A - tI)$, eigenvalores $\lambda$, eigenvectores, eigenspacio $E_\lambda = N(T - \lambda I)$, multiplicidad algebraica ($m_\lambda$) y geométrica ($\dim(E_\lambda)$).
+* **Teoremas del Libro Digital:** Teoremas 15 al 26 (Independencia lineal de eigenvectores de eigenvalores distintos, divisibilidad de multiplicidades).
+* **Ejemplos Resueltos Paso a Paso:** Ejemplos 17 al 26.
+
+### 🔹 Módulo 4.0.3: Criterios de Diagonalización y Sumas Directas (Friedberg §5.2)
+* **Sección en Libro Digital:** `tema-4-0-3`
+* **Conceptos Fundamentales:** Criterio fundamental de diagonalizabilidad ($f(t)$ escindido y $\dim(E_\lambda) = m_\lambda$ para todo $\lambda$), sumas directas $V = E_{\lambda_1} \oplus \dots \oplus E_{\lambda_k}$.
+* **Teoremas del Libro Digital:** Teoremas 27 al 31.
+* **Ejemplos Resueltos Paso a Paso:** Ejemplos 27 al 34 (Matrices diagonalizables vs. no diagonalizables, bloques diagonales).
+
+### 🔹 Módulo 4.1: Subespacios Invariantes, Teorema de Cayley-Hamilton y Polinomio Mínimo (Friedberg §5.4, §5.5 y §5.6)
+* **Sección en Libro Digital:** `tema-4-1`
+* **Subespacios Invariantes (§5.4):**
+  * Definición de $W$ $T$-invariante, operador restricción $T_W: W \to W$.
+  * **Teoremas 32, 33 y 34:** Divisibilidad $\det(T_W - tI) \mid \det(T - tI)$, factorización en sumas directas $f(t) = f_1(t)\cdots f_k(t)$, y representación $[T]_\beta = [T_{W_1}]_{\beta_1} \oplus \dots \oplus [T_{W_k}]_{\beta_k}$.
+  * **Ejemplos 35, 36 y 37:** Factorizaciones y matrices bloque diagonal en $\mathbb{R}^4$ y $M_{6 \times 6}(\mathbb{R})$.
+* **El Teorema de Cayley-Hamilton (§5.5):**
+  * Subespacio $T$-cíclico $C_x = \operatorname{span}(\{x, T(x), T^2(x), \dots\})$, bases cíclicas y matriz compañera $C(p)$.
+  * **Teoremas 35 y 36:** **Teorema de Cayley-Hamilton** ($f(T) = T_0$ y $f(A) = O$).
+  * **Ejemplos 38, 39, 40 y 41:** Verificación operacional y matricial en $M_{2 \times 2}(\mathbb{R})$ y $P_2(\mathbb{R})$.
+* **El Polinomio Mínimo (§5.6):**
+  * Definición de $p(t)$ (polinomio mónico de grado mínimo que anula a $T$).
+  * **Teoremas 37 al 41:** Unicidad y divisibilidad $p(t) \mid f(t)$, coincidencia espectral ($f$ y $p$ tienen las mismas raíces), y **Criterio Espectral de Diagonalizabilidad** ($T$ es diagonalizable $\iff p(t)$ se escinde en factores lineales distintos).
+  * **Ejemplos 42 al 47:** Cálculo de $p(t)$, operadores nilpotentes, matrices con $A^2 - 3A + 2I = O$ y $A^3 = A$.
+
+### 🔹 Módulo 4.3: La Forma Canónica de Jordan (Friedberg §6.1 y §6.2)
+* **Sección en Libro Digital:** `tema-4-3`
+* **Eigenvectores Generalizados (§6.1):**
+  * Bloque de Jordan $J_p(\lambda)$, eigenvector generalizado $(T - \lambda I)^p(x) = 0$, ciclo de Jordan $\gamma$, y eigenspacio generalizado $K_\lambda = \bigcup N((T - \lambda I)^p)$.
+  * **Teoremas 42 al 46:** Independencia lineal de ciclos, descomposición primaria $V = K_{\lambda_1} \oplus \dots \oplus K_{\lambda_k}$, $\dim(K_{\lambda_i}) = m_i$, y estabilización en $N((T - \lambda_i I)^{m_i})$.
+  * **Ejemplos 48 y 49:** Cálculo de ciclos en $\mathbb{C}^3$ y $P_2(\mathbb{C})$.
+* **Forma Canónica de Jordan y Diagramas de Puntos (§6.2):**
+  * Planteamiento general y convención de ordenamiento por longitudes decrecientes $p_1 \ge p_2 \ge \dots \ge p_k$.
+  * **Ejemplo 50 (Ejemplo 4 Friedberg):** Estructura matricial de $A_i$ de $9 \times 9$ con 4 bloques y su diagrama de puntos.
+  * **Teorema 47 (Friedberg 6.6):** Puntos en renglones y relación $\text{número de bloques} = \dim(E_{\lambda_i}) = \operatorname{nulidad}(T - \lambda_i I)$.
+  * **Teorema 48 (Friedberg 6.7):** Fórmulas de rango ($r_1 = n - \operatorname{rango}(T - \lambda_i I)$, $r_j = \operatorname{rango}((T - \lambda_i I)^{j-1}) - \operatorname{rango}((T - \lambda_i I)^j)$) y **Unicidad de Jordan**.
+  * Definición de Forma de Jordan de una Matriz ($J = Q^{-1}AQ$).
+  * **Ejemplo 51 (Ejemplo 5 Friedberg):** Algoritmo completo de Jordan, base $\beta$ y matriz $Q$ para matriz $4 \times 4$ ($f(t) = (t-2)^3(t-3)$).
+  * **Ejemplo 52 (Ejemplo 6 Friedberg):** Jordan con múltiples bloques para matriz $4 \times 4$ ($f(t) = (t-2)^2(t-4)^2$), resolución de $(A - 4I)x_1 = w$, base $\beta$ y matriz $Q$.
+  * **Ejemplo 53 (Ejemplo 7 Friedberg):** Forma de Jordan del operador derivada parcial en polinomios en dos variables.
+  * **Teorema 49 (Friedberg 6.8):** **Criterio Fundamental de Similaridad Matricial:**
+    $$A \sim B \iff A \text{ y } B \text{ tienen exactamente la misma Forma Canónica de Jordan } J$$
+  * **Ejemplo 54 (Ejemplo 8 Friedberg):** Clasificación de similaridad de matrices $3 \times 3$ mediante $J$.
 
 ---
 
-## 📝 Ejercicios Seleccionados de Friedberg para Tareas
+## 📝 Banco de Tareas y Actividades de Evaluación
 
-### Bloque 1: Subespacios Invariantes y Cayley-Hamilton (§5.4 y §5.5)
-1. Sea $T: \mathbb{R}^3 \to \mathbb{R}^3$ definido por $T(a, b, c) = (a + b, b + c, 0)$. Demuestre que $W = \operatorname{span}(\{e_1, e_2\})$ es $T$-invariante y calcule el polinomio característico de $T_W$.
-2. Utilice el Teorema de Cayley-Hamilton para calcular $A^4$ y $A^{-1}$ para la matriz:
-   $$A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}.$$
-3. Demuestre que si $T^2 = T$ (operador de proyección), entonces el polinomio mínimo de $T$ es $p(t) = t(t - 1)$ (si $T \neq 0$ y $T \neq I$).
+Los alumnos deberán resolver los siguientes problemas basándose en los procedimientos desarrollados en el Libro Digital:
 
-### Bloque 2: Polinomio Mínimo (§5.6)
-4. Calcule el polinomio característico y el polinomio mínimo de la matriz:
-   $$A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}.$$
-   ¿Es $A$ diagonalizable? Justifique su respuesta mediante el Teorema 41 (Friedberg 5.33).
-5. Demuestre que si $A^k = O$ para algún $k \ge 1$ (matriz nilpotente), entonces $p(t) = t^m$ para algún $m \le k$, y el único eigenvalor de $A$ es $\lambda = 0$.
+1. **Subespacios Invariantes y Restricción:**
+   * Siguiendo el método del **Ejemplo 35**, sea $T: \mathbb{R}^3 \to \mathbb{R}^3$ con $T(x_1, x_2, x_3) = (2x_1 + x_2, 2x_2, 3x_3)$. Demuestre que $W = \operatorname{span}(\{e_1, e_2\})$ es $T$-invariante, calcule $[T_W]_{\beta_1}$ y verifique el **Teorema 32** sobre la divisibilidad de polinomios característicos.
 
-### Bloque 3: Forma Canónica de Jordan (§6.1 y §6.2)
-6. Para la matriz:
-   $$A = \begin{pmatrix} 3 & 1 & -2 \\ -1 & 0 & 5 \\ -1 & -1 & 4 \end{pmatrix}$$
-   calcule su polinomio característico, los eigenspacios generalizados $K_\lambda$, el diagrama de puntos de cada eigenvalor y su Forma Canónica de Jordan $J$.
-7. Halle una base canónica de Jordan $\beta$ y una matriz invertible $Q$ tal que $J = Q^{-1}AQ$ para la matriz:
-   $$A = \begin{pmatrix} 2 & -4 & 2 & 2 \\ -2 & 0 & 1 & 3 \\ -2 & -2 & 3 & 3 \\ -2 & -6 & 3 & 7 \end{pmatrix}.$$
-8. Dadas las matrices $3 \times 3$:
-   $$A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}, \qquad B = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}$$
-   explique por qué $A$ y $B$ tienen el mismo polinomio característico y el mismo polinomio mínimo pero **no son similares**.
+2. **Teorema de Cayley-Hamilton e Inversión:**
+   * Siguiendo el **Ejemplo 40**, para la matriz $A = \begin{pmatrix} 1 & 4 \\ 2 & 3 \end{pmatrix}$, verifique formalmente que $f(A) = O$. Utilice dicha ecuación matricial para despejar y calcular $A^{-1}$ y $A^3$ sin realizar multiplicaciones directas repetidas.
+
+3. **Polinomio Mínimo y Diagonalizabilidad:**
+   * Siguiendo los **Ejemplos 42, 45 y 46**, determine el polinomio característico $f(t)$ y el polinomio mínimo $p(t)$ de la matriz:
+     $$A = \begin{pmatrix} 3 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 1 & 2 \end{pmatrix}.$$
+   * Aplique el **Teorema 41 (Friedberg 5.33)** para justificar por qué $A$ no es diagonalizable.
+
+4. **Diagramas de Puntos y Forma Canónica de Jordan:**
+   * Siguiendo el algoritmo de los **Ejemplos 50, 51 y 52**, considere una matriz $A \in M_{5 \times 5}(\mathbb{R})$ con polinomio característico $f(t) = -(t - 3)^5$. Si $\operatorname{rango}(A - 3I) = 3$ y $\operatorname{rango}((A - 3I)^2) = 1$:
+     * Calcule el número de puntos en cada renglón ($r_1, r_2, r_3$) aplicando el **Teorema 48**.
+     * Dibuje el diagrama de puntos.
+     * Determine las longitudes de los ciclos ($p_1, p_2, \dots$) y escriba la Forma Canónica de Jordan $J$.
+
+5. **Cálculo de Matriz de Paso $Q$:**
+   * Siguiendo el desarrollo paso a paso del **Ejemplo 52**, para la matriz:
+     $$A = \begin{pmatrix} 2 & -4 & 2 & 2 \\ -2 & 0 & 1 & 3 \\ -2 & -2 & 3 & 3 \\ -2 & -6 & 3 & 7 \end{pmatrix}$$
+     encuentre una base canónica de Jordan $\beta$, ensamble la matriz invertible $Q$ y verifique matricialmente que $QJ = AQ$.
 
 ---
 
-## 💻 Herramientas Computacionales y Plataforma Interactiva
+## 💻 Recomendaciones de Uso del Libro Digital
 
-Se recomienda a los alumnos hacer uso continuo de la plataforma web interactiva del curso (`index.html`) para:
-- Explorar visualmente los diagramas de puntos de Jordan.
-- Interactuar con los simuladores de bases ordenadas y transformaciones lineales.
-- Contrastar cálculos analíticos manuales con las soluciones paso a paso detalladas en los Ejemplos 50 a 54.
+* **Estudio Activo:** Revise cada teorema y analice su aplicación en el ejemplo correspondiente del libro interactivo antes de intentar resolver los ejercicios.
+* **Búsqueda Rápida:** Utilice el buscador superior de la plataforma digital para localizar instantáneamente definiciones, teoremas por su número (ej. "Teorema 36", "Teorema 49") o ejemplos (ej. "Ejemplo 52").
+* **Modo Offline:** La plataforma cuenta con *Service Worker* (PWA), por lo que puede guardarse como aplicación de escritorio o móvil y consultarse sin conexión a internet.
