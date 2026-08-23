@@ -1,210 +1,65 @@
-# Plan de Trabajo y Dosificación de Notas para Alumnos — Álgebra Lineal Avanzada
+# Guía de Estudio y Plan de Trabajo para Alumnos: Unidad 4
 
-**Asignatura:** Álgebra Lineal Avanzada  
-**Semestre:** III (Tercer Semestre)  
-**Carrera:** Licenciatura en Matemática Algorítmica  
-**Unidad Académica:** Escuela Superior de Física y Matemáticas (ESFM — IPN)  
+**Unidad de Aprendizaje:** Álgebra Lineal Avanzada  
+**Institución:** Instituto Politécnico Nacional (IPN) — Escuela Superior de Física y Matemáticas (ESFM)  
 **Texto Base Obligatorio:** Stephen H. Friedberg, Arnold J. Insel & Lawrence E. Spence, *Álgebra lineal* (1ra Edición en español, Publicaciones Cultural / CECSA / Prentice-Hall, México, 1982).  
-**Institución:** Instituto Politécnico Nacional (IPN)
 
 ---
 
-## 1. Lineamientos Generales para la Elaboración de Notas
+## 🎯 Objetivos de Aprendizaje de la Unidad 4
 
-### 🎯 Propósito Pedagógico
-El objetivo de las notas individuales es fomentar en el estudiante el rigor matemático abstracto, la deducción lógica formal, la contrastación bibliográfica crítica y la competencia computacional algorítmica para implementar los conceptos de álgebra lineal avanzada en código verificable de Python.
-
-### 📋 Reglas Estrictas de Entrega
-1. **Consulta de Textos Alternativos Obligatoria:**  
-   La nota debe redactarse consultando **al menos un texto diferente a Friedberg** seleccionado exclusivamente de la **Bibliografía Oficial del Programa del IPN** (Strang, Gilbert & Gilbert, Moore, Grossman, Hoffman & Kunze, Lang, Axler). Se debe contrastar la notación, definiciones y enfoque pedagógico del autor alternativo frente a Friedberg.
-2. **Estructura Requerida de Cada Reporte (Formato Markdown / PDF / Notebook):**
-   * **Encabezado Académico:** Nombre del alumno, número de reporte, fecha y temas cubiertos.
-   * **Marco Teórico y Definiciones Formales:** Definiciones precisas con fórmulas renderizadas en LaTeX.
-   * **Demostración Analítica Rigurosa:** Desarrollo paso a paso de al menos una proposición/teorema clave (sin omitir justificaciones algebraicas).
-   * **Ejemplo Práctico Resuelto Paso a Paso:** Resolución matemática completa a mano.
-   * **Implementación Computacional en Python:** Código limpio, documentado con *docstrings*, cálculos matriciales y visualizaciones pertinentes.
-   * **Pregunta de Reflexión Teórica:** Respuesta argumentada a la pregunta detonadora del reporte.
-   * **Bibliografía:** Citas en formato IEEE o APA especificando capítulos y páginas consultadas tanto de Friedberg como del texto alternativo oficial.
+Al finalizar esta unidad, el alumno será capaz de:
+1. Representar transformaciones lineales mediante matrices relativas a bases ordenadas arbitrarias y calcular matrices de cambio de base.
+2. Determinar si un operador lineal o matriz es diagonalizable calculando sus multiplicidades algebraicas y geométricas, y construyendo bases de eigenvectores.
+3. Descomponer espacios vectoriales en subespacios $T$-invariantes y representar operadores en sumas directas de bloques diagonales.
+4. Aplicar el **Teorema de Cayley-Hamilton** para anular matrices y operadores, y calcular el **polinomio mínimo** $p(t)$.
+5. Determinar la **Forma Canónica de Jordan** $J$ de cualquier matriz u operador cuyo polinomio característico se escinda, utilizando diagramas de puntos (*dot diagrams*), construyendo bases canónicas de Jordan $\beta$ formadas por ciclos de eigenvectores generalizados y hallando la matriz invertible de paso $Q$ tal que $J = Q^{-1}AQ$.
 
 ---
 
-## 2. Dosificación y Calendario de Entregas (Reportes R01 a R06)
+## 📅 Cronograma y Ruta de Estudio Semanal
 
-```
-┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-│                             CALENDARIO Y DOSIFICACIÓN DE REPORTES (UNIDAD 1)                                     │
-├────────┬──────────────────────────────────────────┬────────────────────────────────────────┬─────────────────────┤
-│Reporte │ Temas de la Sesión (Luenberger 4ta Ed.)  │ Textos Oficiales Alternativos          │ Entregable Requerido│
-├────────┼──────────────────────────────────────────┼────────────────────────────────────────┼─────────────────────┤
-│R01. (N)│ 1.1.1 Notación Matricial & Particiones   │ Bazaraa, Jarvis & Sherali (2011) Cap. 2│ Nota teórica +      │
-│        │ 1.1.2 Espacios En, Producto Escalar,     │ Cottle & Thapa (2017) Cap. 1           │ 3 ejercicios de     │
-│        │       Cauchy-Schwarz y Proy. Ortogonal   │                                        │ proyección ortogonal│
-├────────┼──────────────────────────────────────────┼────────────────────────────────────────┼─────────────────────┤
-│R02. (N)│ 1.1.3 Autovalores & Formas Cuadráticas   │ Nocedal & Wright (2006) Apéndice A     │ Nota teórica +      │
-│        │ 1.1.5 Eliminación Gaussiana, Fact. LU,   │ Cottle & Thapa (2017) Cap. 2           │ Script Python de    │
-│        │       Matrices Elementales y Pivoteo     │                                        │ Factorización LU    │
-├────────┼──────────────────────────────────────────┼────────────────────────────────────────┼─────────────────────┤
-│R03. (N)│ 1.1.4 Topología en En (Abiertos/Cerrados,│ Bazaraa, Sherali & Shetty (2013) Cap. 1│ Nota teórica +      │
-│        │       Weierstrass), Gradiente, Hessiano, │ Bonnans et al. (2006) Cap. 1           │ Demostración TFI y  │
-│        │       Taylor y Teorema Función Implícita │                                        │ Desarrollo Taylor   │
-├────────┼──────────────────────────────────────────┼────────────────────────────────────────┼─────────────────────┤
-│R04. (N)│ 1.2.1 Variedades Lineales & Hiperplanos  │ Bazaraa, Sherali & Shetty (2013) Cap. 2│ Nota teórica +      │
-│        │ 1.2.2 Hiperplanos Separadores y de Apoyo │ Bazaraa, Jarvis & Sherali (2011) Cap. 2│ Visualización de    │
-│        │       (Teoremas 1, 2 y 3 de Separación)  │ Cottle & Thapa (2017) Cap. 4           │ Separación Convexa  │
-├────────┼──────────────────────────────────────────┼────────────────────────────────────────┼─────────────────────┤
-│R05. (N)│ 1.2.3 Puntos Extremos & Teorema de       │ Bazaraa, Jarvis & Sherali (2011) Cap. 2│ Nota teórica +      │
-│        │       Representación de Politopos        │ Bazaraa, Sherali & Shetty (2013) Cap. 2│ Tabla y cálculo     │
-│        │ 1.3.5 Soluciones Básicas Factibles (SBF) │ Cottle & Thapa (2017) Cap. 3           │ de todas las SBF    │
-├────────┼──────────────────────────────────────────┼────────────────────────────────────────┼─────────────────────┤
-│R06. (N)│ 1.3.1-1.3.3 Filosofía, Escala, Dificultad│ Nocedal & Wright (2006) Cap. 1 & 2     │ Nota teórica +      │
-│        │       y Convergencia de Algoritmos       │ Öchsner & Makvandi (2020) Cap. 1 & 2   │ Formulación a Forma │
-│        │ 1.3.4 Los 7 Modelos Clásicos de PL       │ Bazaraa, Jarvis & Sherali (2011) Cap. 1│ Estándar en Python  │
-└────────┴──────────────────────────────────────────┴────────────────────────────────────────┴─────────────────────┘
-```
+| Sesión | Tema Principal | Secciones Friedberg | Teoremas Clave | Entregables y Prácticas |
+| :---: | :--- | :--- | :--- | :--- |
+| **1** | **Bases ordenadas y Representación Matricial** | §2.2 (pp. 76–83), §2.5 (pp. 100–108) | Teoremas 1 al 14 | Cálculo de $[T]_\beta^\gamma$ para operadores diferenciales e integrales en $P_n(\mathbb{R})$. |
+| **2** | **Diagonalizabilidad y Eigenspacios** | §5.1 (pp. 245–259), §5.2 (pp. 263–277) | Teoremas 15 al 31 | Determinación de multiplicidades algebraicas $m_\lambda$ y geométricas $\dim(E_\lambda)$. |
+| **3** | **Subespacios Invariantes y Restricciones** | §5.4 (pp. 297–304) | Teoremas 32 al 34 | Descomposición en sumas directas $V = W_1 \oplus \dots \oplus W_k$ y matrices por bloques. |
+| **4** | **Subespacios Cíclicos y Cayley-Hamilton** | §5.5 (pp. 305–310) | Teoremas 35 y 36 | Verificación de $f(A) = O$ y cálculo de inversas de matrices mediante $A^{-1} = -\frac{1}{a_0}(A^{n-1} + \dots + a_1 I)$. |
+| **5** | **Polinomio Mínimo y Criterio de Diagonalización** | §5.6 (pp. 311–318) | Teoremas 37 al 41 | Cálculo de $p(t)$ a partir de $f(t)$ y verificación de diagonalizabilidad mediante raíces simples. |
+| **6** | **Eigenvectores Generalizados y Ciclos** | §6.1 (pp. 327–342) | Teoremas 42 al 46 | Construcción de eigenspacios generalizados $K_\lambda$ y ciclos $\gamma = \{(T-\lambda I)^{p-1}x, \dots, x\}$. |
+| **7** | **Diagramas de Puntos y Forma Canónica de Jordan** | §6.2 (pp. 339–359) | Teoremas 47 al 49 | Construcción de $J$, diagramas de puntos, base $\beta$ y matriz invertible $Q$ tal que $J = Q^{-1}AQ$. |
 
 ---
 
-## 3. Guía Detallada por Reporte
+## 📝 Ejercicios Seleccionados de Friedberg para Tareas
 
-### 📄 Reporte R01. (N): Álgebra Lineal, Espacios $E^n$ y Proyecciones Ortogonales
-* **Contenido Temático:**
-  * Notación matricial de Luenberger, partición por bloques $\mathbf{A} = [\mathbf{B}, \mathbf{C}]$.
-  * Espacio euclidiano $E^n$, producto interior $\mathbf{x}^T\mathbf{y}$, norma euclidiana $\|\mathbf{x}\| = (\mathbf{x}^T\mathbf{x})^{1/2}$, desigualdad de Cauchy-Schwarz.
-  * Subespacios $M$, complemento ortogonal $M^\perp$ y Teorema de Descomposición Ortogonal única $\mathbf{x} = \mathbf{a} + \mathbf{b}$ con $\mathbf{a} \in M$, $\mathbf{b} \in M^\perp$.
-* **Textos de Consulta:**
-  * *Base:* Luenberger & Ye (2016), Apéndice A (Sec. A.1–A.3, pp. 495–498).
-  * *Alternativo Oficial:* Bazaraa, Jarvis & Sherali (2011), Cap. 2; Cottle & Thapa (2017), Cap. 1.
-* **Entregable Específico:**
-  1. Resumen teórico riguroso en prosa académica.
-  2. Demostración analítica de la desigualdad de Cauchy-Schwarz a partir de $\|\mathbf{x} - \alpha \mathbf{y}\|^2 \ge 0$.
-  3. Cálculo manual de la proyección ortogonal del vector $\mathbf{x} = (3, 1, 4)^T$ sobre el subespacio $M = \operatorname{span}\{(1, 1, 0)^T, (0, 1, 1)^T\}$.
-  4. Script en Python que calcule y grafique la proyección en 3D con Matplotlib.
-* **Pregunta de Reflexión:** ¿Por qué la descomposición ortogonal $\mathbf{x} = \mathbf{a} + \mathbf{b}$ garantiza que $\mathbf{a}$ es el punto de $M$ más cercano a $\mathbf{x}$?
+### Bloque 1: Subespacios Invariantes y Cayley-Hamilton (§5.4 y §5.5)
+1. Sea $T: \mathbb{R}^3 \to \mathbb{R}^3$ definido por $T(a, b, c) = (a + b, b + c, 0)$. Demuestre que $W = \operatorname{span}(\{e_1, e_2\})$ es $T$-invariante y calcule el polinomio característico de $T_W$.
+2. Utilice el Teorema de Cayley-Hamilton para calcular $A^4$ y $A^{-1}$ para la matriz:
+   $$A = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}.$$
+3. Demuestre que si $T^2 = T$ (operador de proyección), entonces el polinomio mínimo de $T$ es $p(t) = t(t - 1)$ (si $T \neq 0$ y $T \neq I$).
 
----
+### Bloque 2: Polinomio Mínimo (§5.6)
+4. Calcule el polinomio característico y el polinomio mínimo de la matriz:
+   $$A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}.$$
+   ¿Es $A$ diagonalizable? Justifique su respuesta mediante el Teorema 41 (Friedberg 5.33).
+5. Demuestre que si $A^k = O$ para algún $k \ge 1$ (matriz nilpotente), entonces $p(t) = t^m$ para algún $m \le k$, y el único eigenvalor de $A$ es $\lambda = 0$.
 
-### 📄 Reporte R02. (N): Autovalores, Formas Cuadráticas y Factorización LU
-* **Contenido Temático:**
-  * Ecuación característica $\det(\mathbf{A}-\lambda\mathbf{I})=0$, ortogonalidad de autovectores de matrices simétricas, diagonalización ortogonal $\mathbf{Q}^T\mathbf{A}\mathbf{Q} = \mathbf{\Lambda}$.
-  * Formas cuadráticas $\mathbf{x}^T\mathbf{A}\mathbf{x}$ y clasificación por signatura de autovalores (definida positiva, semidefinida, indefinida).
-  * Raíz cuadrada simétrica $\mathbf{A}^{1/2} = \mathbf{Q}\mathbf{\Lambda}^{1/2}\mathbf{Q}^T$.
-  * Eliminación gaussiana, matrices elementales $\mathbf{M}_k$, factorización $\mathbf{A} = \mathbf{L}\mathbf{U}$, sustitución hacia adelante/atrás y estrategia de pivoteo parcial.
-* **Textos de Consulta:**
-  * *Base:* Luenberger & Ye (2016), Apéndice A (Sec. A.4, pp. 498–499) y Apéndice C (pp. 513–515).
-  * *Alternativo Oficial:* Nocedal & Wright (2006), Apéndice A; Cottle & Thapa (2017), Cap. 2.
-* **Entregable Específico:**
-  1. Desarrollo analítico de la signatura de la matriz $\mathbf{A} = \begin{pmatrix} 4 & 2 \\ 2 & 3 \end{pmatrix}$ y cálculo de $\mathbf{A}^{1/2}$.
-  2. Factorización $\mathbf{A} = \mathbf{L}\mathbf{U}$ paso a paso para un sistema $3 \times 3$ mostrando explícitamente las matrices elementales $\mathbf{M}_1, \mathbf{M}_2$ y $\mathbf{L} = \mathbf{M}_1^{-1}\mathbf{M}_2^{-1}$.
-  3. Script en Python con función propia `lu_factorization(A)` que implemente el algoritmo de Luenberger y compare el tiempo de cómputo frente a la inversión matricial explícita $\mathbf{A}^{-1}\mathbf{b}$.
-* **Pregunta de Reflexión:** ¿Por qué en optimización numérica se prefiere resolver dos sistemas triangulares $\mathbf{L}\mathbf{y}=\mathbf{b}$ y $\mathbf{U}\mathbf{x}=\mathbf{y}$ en lugar de calcular explícitamente la inversa $\mathbf{A}^{-1}$?
+### Bloque 3: Forma Canónica de Jordan (§6.1 y §6.2)
+6. Para la matriz:
+   $$A = \begin{pmatrix} 3 & 1 & -2 \\ -1 & 0 & 5 \\ -1 & -1 & 4 \end{pmatrix}$$
+   calcule su polinomio característico, los eigenspacios generalizados $K_\lambda$, el diagrama de puntos de cada eigenvalor y su Forma Canónica de Jordan $J$.
+7. Halle una base canónica de Jordan $\beta$ y una matriz invertible $Q$ tal que $J = Q^{-1}AQ$ para la matriz:
+   $$A = \begin{pmatrix} 2 & -4 & 2 & 2 \\ -2 & 0 & 1 & 3 \\ -2 & -2 & 3 & 3 \\ -2 & -6 & 3 & 7 \end{pmatrix}.$$
+8. Dadas las matrices $3 \times 3$:
+   $$A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}, \qquad B = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}$$
+   explique por qué $A$ y $B$ tienen el mismo polinomio característico y el mismo polinomio mínimo pero **no son similares**.
 
 ---
 
-### 📄 Reporte R03. (N): Topología en $E^n$, Weierstrass, Derivadas, Taylor y Función Implícita
-* **Contenido Temático:**
-  * Sucesiones en $E^n$, bolas abiertas, conjuntos abiertos/cerrados, interior $\mathring{S}$, frontera y compacidad.
-  * Teorema de Weierstrass para funciones continuas en conjuntos compactos.
-  * Gradiente $\nabla f(\mathbf{x})$, matriz Hessiana $\nabla^2 f(\mathbf{x}) = \mathbf{F}(\mathbf{x})$ y simetría de derivadas cruzadas.
-  * Teorema de Taylor de orden 1 y 2 con término de residuo matricial.
-  * Teorema de la Función Implícita (TFI) y su papel como generalización no lineal de sistemas lineales $\mathbf{A}\mathbf{x}=\mathbf{b}$.
-  * Notación de Landau $O(x)$ y $o(x)$.
-* **Textos de Consulta:**
-  * *Base:* Luenberger & Ye (2016), Apéndice A (Sec. A.5–A.6, pp. 499–503).
-  * *Alternativo Oficial:* Bazaraa, Sherali & Shetty (2013), Cap. 1; Bonnans et al. (2006), Cap. 1.
-* **Entregable Específico:**
-  1. Explicación de la importancia del Teorema de Weierstrass en la existencia de soluciones óptimas en optimización no lineal.
-  2. Expansión de Taylor cuadrática de la función $f(x_1, x_2) = x_1^3 + 2x_1 x_2^2 - 3x_2^2$ alrededor del punto $(1, 2)$.
-  3. Aplicación del Teorema de la Función Implícita para determinar si el sistema $x_1^2 + x_2^2 + x_3^2 - 1 = 0$, $x_1 + x_2 + x_3 = 0$ puede resolverse localmente para $(x_1, x_2)$ en términos de $x_3$ cerca de $(1/\sqrt{2}, -1/\sqrt{2}, 0)$.
-  4. Script en Python con SymPy para verificar analíticamente el gradiente, Hessiano y aproximación de Taylor.
-* **Pregunta de Reflexión:** ¿Qué ocurre con la aproximación local de un problema de optimización cuando la matriz Hessiana evaluada en un punto estacionario es indefinida o singular?
+## 💻 Herramientas Computacionales y Plataforma Interactiva
 
----
-
-### 📄 Reporte R04. (N): Conjuntos Convexos, Hiperplanos y Teoremas de Separación
-* **Contenido Temático:**
-  * Definición de conjunto convexo, preservación por combinaciones, suma de Minkowski e intersecciones (Proposición 1).
-  * Conos, conos convexos y cápsula convexa $\operatorname{co}(S)$.
-  * Variedades lineales, equivalencia algebraica y geométrica de hiperplanos $H = \{\mathbf{x}: \mathbf{a}^T\mathbf{x} = c\}$ (Proposiciones 2 y 3).
-  * Semiespacios $H^+, H^-$, politopos y poliedros.
-  * Demostración completa del **Teorema 1 de Luenberger** (Separación estricta de punto exterior usando $\delta = \inf \|\mathbf{x}-\mathbf{y}\|$ y $\mathbf{a} = \mathbf{x}_0 - \mathbf{y}$).
-  * Teorema 2 (Hiperplano de apoyo en frontera) y Teorema 3 (Separación de conjuntos convexos disjuntos).
-* **Textos de Consulta:**
-  * *Base:* Luenberger & Ye (2016), Apéndice B (Sec. B.1–B.3, pp. 505–511).
-  * *Alternativo Oficial:* Bazaraa, Sherali & Shetty (2013), Cap. 2 (Sec. 2.4); Bazaraa, Jarvis & Sherali (2011), Cap. 2; Cottle & Thapa (2017), Cap. 4.
-* **Entregable Específico:**
-  1. Transcripción y desglose paso a paso de la demostración del Teorema 1 de Luenberger, justificando por qué el límite $\alpha \to 0^+$ produce $(\mathbf{x}_0 - \mathbf{y})^T(\mathbf{x} - \mathbf{x}_0) \ge 0$.
-  2. Construcción analítica del hiperplano de separación entre el elipsoide $C = \{(x_1, x_2) : 2x_1^2 + x_2^2 \le 4\}$ y el punto exterior $\mathbf{y} = (3, 2)$.
-  3. Script interactivo en Python con Matplotlib/Plotly que dibuje el conjunto convexo $C$, el punto $\mathbf{y}$, la proyección $\mathbf{x}_0$, el vector normal $\mathbf{a}$ y el hiperplano separador.
-* **Pregunta de Reflexión:** ¿Por qué la convexidad del conjunto $C$ es indispensable para garantizar que el hiperplano separa a todo el conjunto y no solo localmente cerca de $\mathbf{x}_0$?
-
----
-
-### 📄 Reporte R05. (N): Puntos Extremos, Teorema de Representación y Soluciones Básicas
-* **Contenido Temático:**
-  * Definición geométrica de punto extremo.
-  * Lema 1 de Luenberger (puntos extremos de la intersección con hiperplano de apoyo).
-  * Demostración por inducción en la dimensión $n$ del **Teorema 4** ($C = \operatorname{co}(\operatorname{ext}(C))$ para conjuntos convexos cerrados y acotados).
-  * Teorema 5: Equivalencia entre la $\mathcal{H}$-representación (intersección finita de semiespacios) y la $\mathcal{V}$-representación (cápsula convexa de vértices) de poliedros.
-  * Sistemas $\mathbf{A}\mathbf{x} = \mathbf{b}$, submatrices base $\mathbf{B}_{m \times m}$, variables básicas y no básicas.
-  * Definición algebraica de Solución Básica y Solución Básica Factible (SBF), y su correspondencia 1-a-1 con los puntos extremos del poliedro factible.
-* **Textos de Consulta:**
-  * *Base:* Luenberger & Ye (2016), Apéndice B (Sec. B.4, pp. 511–512) y Cap. 2 (Sec. 2.3, pp. 19–20).
-  * *Alternativo Oficial:* Bazaraa, Jarvis & Sherali (2011), Caps. 2 y 3; Bazaraa, Sherali & Shetty (2013), Cap. 2; Cottle & Thapa (2017), Cap. 3.
-* **Entregable Específico:**
-  1. Demostración analítica del Lema 1 de Luenberger.
-  2. Para el politopo definido por $x_1 + 2x_2 \le 6$, $2x_1 + x_2 \le 6$, $x_1, x_2 \ge 0$:
-     - Convertir a forma estándar con variables de holgura $\mathbf{A}\mathbf{x} = \mathbf{b}$.
-     - Enumerar todas las $\binom{4}{2} = 6$ posibles bases $\mathbf{B}$, calcular sus soluciones básicas $\mathbf{x}_B = \mathbf{B}^{-1}\mathbf{b}$ y determinar cuáles son factibles (SBF).
-     - Identificar las coordenadas geométricas $(x_1, x_2)$ de cada SBF y comprobar que corresponden exactamente a los vértices del poliedro.
-  3. Script en Python que automatice el cálculo de todas las combinaciones de columnas de $\mathbf{A}$, determine la invertibilidad de $\mathbf{B}$, obtenga las SBF y grafique el poliedro resaltando los puntos extremos.
-* **Pregunta de Reflexión:** ¿Qué ventaja computacional proporciona saber que el óptimo de un programa lineal siempre se encuentra en una Solución Básica Factible (punto extremo)?
-
----
-
-### 📄 Reporte R06. (N): Modelado en PL, Escala, Convergencia y los 7 Problemas Canónicos
-* **Contenido Temático:**
-  * Filosofía de optimización de Luenberger, balance precisión vs. tratabilidad computacional.
-  * Clasificación por escala (pequeña, mediana, gran escala) y la importancia crítica de la esparcidad.
-  * Algoritmos iterativos: convergencia global vs. local, tasa canónica de convergencia (*"One good theory is worth a thousand computer runs"*).
-  * Transformación a forma estándar (holguras, exceso, variables libres por descomposición $x = u - v$ o sustitución).
-  * Los **7 modelos canónicos de Luenberger**:
-    1. Problema de la Dieta (Stigler).
-    2. Problema de Manufactura.
-    3. Problema de Transporte (matriz de coeficientes rala).
-    4. Problema de Flujo Máximo en redes capacitadas.
-    5. Problema de Almacenamiento multitemporal (Warehousing).
-    6. Clasificador Lineal y Support Vector Machine (SVM).
-    7. Subasta Combinatoria Parimutuel (formulación minimax linealizada).
-* **Textos de Consulta:**
-  * *Base:* Luenberger & Ye (2016), Cap. 1 (Sec. 1.1–1.4, pp. 1–8) y Cap. 2 (Sec. 2.1–2.2, pp. 11–19).
-  * *Alternativo Oficial:* Nocedal & Wright (2006), Caps. 1 y 2; Bazaraa, Jarvis & Sherali (2011), Cap. 1; Öchsner & Makvandi (2020), Caps. 1 y 2.
-* **Entregable Específico:**
-  1. Ensayo crítico (1–2 páginas) sobre la clasificación de escala y esparcidad de Luenberger y cómo los métodos de búsqueda iterativa superan la resolución analítica de condiciones de Lagrange.
-  2. Formulación matemática formal en forma estándar matricial $(\mathbf{c}, \mathbf{A}, \mathbf{b})$ de al menos 3 de los 7 modelos canónicos de Luenberger (incluyendo obligatoriamente el Clasificador SVM y el Problema de Almacenamiento).
-  3. Script en Python utilizando `scipy.optimize.linprog` que resuelva una instancia numérica del Problema de Almacenamiento ($n=4$ periodos) y del Clasificador SVM con puntos 2D separables, graficando el hiperplano resultante.
-* **Pregunta de Reflexión:** ¿Cómo se linealiza la función objetivo minimax $\max [\boldsymbol{\pi}^T\mathbf{x} - \max_i (\mathbf{A}\mathbf{x})_i]$ en el problema de la subasta combinatoria para transformarlo en un programa lineal estándar?
-
----
-
-## 4. Rúbrica de Evaluación Oficial (Escala de 100 Puntos)
-
-| Criterio | Descripción | Puntaje Máximo |
-| :--- | :--- | :---: |
-| **Rigor Matemático y Demostraciones** | Precisión en las definiciones formales, notación vectorial/matricial correcta y desarrollo paso a paso sin saltos lógicos en las demostraciones analíticas. | **25 pts** |
-| **Fidelidad y Consulta Bibliográfica** | Apego conceptual a Luenberger & Ye (2016) y contrastación explícita y documentada con al menos un **texto alternativo oficial del IPN**, incluyendo citas formales (IEEE/APA). | **20 pts** |
-| **Ejercicios Numéricos y Procedimientos** | Resolución detallada, paso a paso, con operaciones matriciales y vectoriales completas y verificación de resultados. | **20 pts** |
-| **Implementación Computacional en Python** | Código funcional, modular, con *docstrings*, buenas prácticas PEP 8, reproducible y con visualizaciones gráficas claras (Matplotlib/Plotly). | **20 pts** |
-| **Análisis Crítico y Pregunta Detonadora** | Profundidad conceptual, claridad argumentativa y justificación sólida de la pregunta de reflexión teórica. | **15 pts** |
-| **Total** | | **100 pts** |
-
----
-
-## 5. Bibliografía Oficial del IPN para Consulta de Alumnos
-
-1. **Bazaraa, M. S., Jarvis, J. J. & Sherali, H. D. (2011)**. *Linear Programming and Network Flows* (4th ed.). Hoboken, NJ: John Wiley & Sons. ISBN: 978-1-118-21132-8. [Tipo B]
-2. **Bazaraa, M. S., Sherali, H. D. & Shetty, C. M. (2013)**. *Nonlinear Programming: Theory and Algorithms* (3rd ed.). Hoboken, NJ: John Wiley & Sons. ISBN: 978-1-118-85756-4. [Tipo B]
-3. **Bonnans, J. F., Gilbert, J. C., Lemarechal, C. & Sagastizábal, C. (2006)**. *Numerical Optimization: Theoretical and Practical Aspects* (2nd ed.). Berlin: Springer-Verlag. ISBN: 978-3-540-35445-1. [Tipo C]
-4. **Cottle, R. W. & Thapa, M. N. (2017)**. *Linear and Nonlinear Optimization*. New York: Springer. ISBN: 978-1-4939-7053-7. [Tipo B]
-5. **Luenberger, D. G. & Ye, Y. (2016)**. *Linear and Nonlinear Programming* (4th ed.). Cham, Switzerland: Springer International Publishing. ISBN: 978-3-319-18841-6. [Tipo B — **Texto Base Obligatorio**]
-6. **Nocedal, J. & Wright, S. (2006)**. *Numerical Optimization* (2nd ed.). New York: Springer. ISBN: 978-0-387-30303-1. [Tipo B]
-7. **Öchsner, A. & Makvandi, R. (2020)**. *Numerical Engineering Optimization: Continuous and Discrete Problems*. Cham, Switzerland: Springer. ISBN: 978-3-030-43387-1. [Tipo C]
+Se recomienda a los alumnos hacer uso continuo de la plataforma web interactiva del curso (`index.html`) para:
+- Explorar visualmente los diagramas de puntos de Jordan.
+- Interactuar con los simuladores de bases ordenadas y transformaciones lineales.
+- Contrastar cálculos analíticos manuales con las soluciones paso a paso detalladas en los Ejemplos 50 a 54.

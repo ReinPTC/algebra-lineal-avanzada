@@ -1,5 +1,5 @@
-# Dependencias para los módulos interactivos en Python — Unidad 1 (Optimización IPN)
+# Dependencias computacionales para Álgebra Lineal Avanzada (ESFM - IPN)
 numpy>=1.24.0
 scipy>=1.10.0
+sympy>=1.12.0
 matplotlib>=3.7.0
-jupyterlab>=4.0.0
