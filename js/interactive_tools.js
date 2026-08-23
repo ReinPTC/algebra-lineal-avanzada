@@ -1,347 +1,296 @@
 /* ==============================================================================
-   Módulos Interactivos: Visualizadores Matemáticos y Solvers en el Navegador
-   Libro Digital Interactivo — Unidad 1: Herramientas para la Optimización
-   David G. Luenberger & Yinyu Ye (4ta Edición)
+   Herramientas Interactivas y Calculadores de Álgebra Lineal Avanzada
+   ESFM — IPN • Unidad 4: Similaridad y Operadores Normales
+   Tema 4.0.1: 2.2 Representación matricial de una transformación lineal
 ============================================================================== */
 
 window.InteractiveTools = {
-  // ============================================================================
-  // 1. VISUALIZADOR DE FORMAS CUADRÁTICAS Y SIGNATURA ESPECTRAL (Apéndice A.4)
-  // ============================================================================
-  initQuadraticFormTool: function() {
-    const canvas = document.getElementById('quadCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    
-    const sliderA11 = document.getElementById('sliderA11');
-    const sliderA12 = document.getElementById('sliderA12');
-    const sliderA22 = document.getElementById('sliderA22');
-    
-    const valA11 = document.getElementById('valA11');
-    const valA12 = document.getElementById('valA12');
-    const valA22 = document.getElementById('valA22');
-    const badgeSig = document.getElementById('signatureBadge');
-    const statEig = document.getElementById('eigenvalStats');
+  // 1. Explorador y Calculador de Vector Coordenado [x]_beta (Ejemplo 16)
+  initCoordinateVectorTool: function () {
+    const a0Input = document.getElementById('coord-a0');
+    const a1Input = document.getElementById('coord-a1');
+    const a2Input = document.getElementById('coord-a2');
+    const polyDisplay = document.getElementById('coord-poly-display');
+    const vectorDisplay = document.getElementById('coord-vector-display');
+    const expansionDisplay = document.getElementById('coord-expansion-display');
 
-    function redraw() {
-      const a11 = parseFloat(sliderA11.value);
-      const a12 = parseFloat(sliderA12.value);
-      const a22 = parseFloat(sliderA22.value);
+    if (!a0Input || !a1Input || !a2Input) return;
 
-      valA11.textContent = a11.toFixed(1);
-      valA12.textContent = a12.toFixed(1);
-      valA22.textContent = a22.toFixed(1);
+    function update() {
+      const a0 = parseFloat(a0Input.value) || 0;
+      const a1 = parseFloat(a1Input.value) || 0;
+      const a2 = parseFloat(a2Input.value) || 0;
 
-      // Autovalores de matriz 2x2 simétrica A = [[a11, a12], [a12, a22]]
-      const trace = a11 + a22;
-      const det = a11 * a22 - a12 * a12;
-      const disc = Math.sqrt(Math.max(0, trace * trace - 4 * det));
-      const lambda1 = (trace + disc) / 2;
-      const lambda2 = (trace - disc) / 2;
-
-      statEig.textContent = `λ₁ = ${lambda1.toFixed(2)}, λ₂ = ${lambda2.toFixed(2)}, det(A) = ${det.toFixed(2)}`;
-
-      // Signatura
-      if (lambda1 > 0.05 && lambda2 > 0.05) {
-        badgeSig.textContent = 'Definida Positiva (Mínimo Estricto)';
-        badgeSig.style.background = '#dbeafe';
-        badgeSig.style.color = '#1d4ed8';
-      } else if (lambda1 < -0.05 && lambda2 < -0.05) {
-        badgeSig.textContent = 'Definida Negativa (Máximo Estricto)';
-        badgeSig.style.background = '#fee2e2';
-        badgeSig.style.color = '#b91c1c';
-      } else if (lambda1 * lambda2 < -0.05) {
-        badgeSig.textContent = 'Indefinida (Punto de Ensilladura)';
-        badgeSig.style.background = '#fef3c7';
-        badgeSig.style.color = '#b45309';
-      } else {
-        badgeSig.textContent = 'Semidefinida (Autovalor Nulo)';
-        badgeSig.style.background = '#f1f5f9';
-        badgeSig.style.color = '#475569';
+      // Formatear polinomio f(x)
+      let polyStr = '';
+      if (a0 !== 0 || (a1 === 0 && a2 === 0)) polyStr += `${a0}`;
+      
+      if (a1 !== 0) {
+        const sign = a1 > 0 ? (polyStr ? ' + ' : '') : (polyStr ? ' - ' : '-');
+        const absVal = Math.abs(a1) === 1 ? '' : Math.abs(a1);
+        polyStr += `${sign}${absVal}x`;
       }
 
-      // Dibujar curvas de nivel en Canvas
-      const width = canvas.width;
-      const height = canvas.height;
-      ctx.clearRect(0, 0, width, height);
+      if (a2 !== 0) {
+        const sign = a2 > 0 ? (polyStr ? ' + ' : '') : (polyStr ? ' - ' : '-');
+        const absVal = Math.abs(a2) === 1 ? '' : Math.abs(a2);
+        polyStr += `${sign}${absVal}x^2`;
+      }
 
-      const cx = width / 2;
-      const cy = height / 2;
-      const scale = 40; // px por unidad
+      if (polyDisplay) {
+        polyDisplay.innerHTML = `$$f(x) = ${polyStr}$$`;
+      }
 
-      // Ejes coordenados
-      ctx.strokeStyle = 'rgba(150, 150, 150, 0.4)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, cy); ctx.lineTo(width, cy);
-      ctx.moveTo(cx, 0); ctx.lineTo(cx, height);
-      ctx.stroke();
+      if (vectorDisplay) {
+        vectorDisplay.innerHTML = `$$[f]_\\beta = \\begin{pmatrix} ${a0} \\\\ ${a1} \\\\ ${a2} \\end{pmatrix}$$`;
+      }
 
-      // Malla de curvas de nivel
-      const levels = [0.5, 1.0, 2.0, 4.0, 8.0, -0.5, -1.0, -2.0, -4.0];
-      levels.forEach(c => {
-        ctx.beginPath();
-        ctx.strokeStyle = c > 0 ? 'rgba(37, 99, 235, 0.65)' : 'rgba(239, 68, 68, 0.65)';
-        ctx.lineWidth = 1.5;
+      if (expansionDisplay) {
+        expansionDisplay.innerHTML = `$$f(x) = (${a0})\\cdot 1 + (${a1})\\cdot x + (${a2})\\cdot x^2$$`;
+      }
 
-        let first = true;
-        for (let angle = 0; angle <= Math.PI * 2 + 0.1; angle += 0.05) {
-          const cos = Math.cos(angle);
-          const sin = Math.sin(angle);
-          const denom = a11 * cos * cos + 2 * a12 * cos * sin + a22 * sin * sin;
+      if (window.triggerKaTeX) window.triggerKaTeX();
+    }
 
-          if (denom * c > 0) {
-            const r = Math.sqrt(c / denom);
-            if (r > 0 && r < 10) {
-              const px = cx + r * cos * scale;
-              const py = cy - r * sin * scale;
-              if (first) { ctx.moveTo(px, py); first = false; }
-              else { ctx.lineTo(px, py); }
-            }
-          }
-        }
-        ctx.stroke();
+    [a0Input, a1Input, a2Input].forEach(inp => inp.addEventListener('input', update));
+
+    // Preset buttons
+    const btnEx16 = document.getElementById('btn-preset-ex16');
+    if (btnEx16) {
+      btnEx16.addEventListener('click', () => {
+        a0Input.value = 4;
+        a1Input.value = 6;
+        a2Input.value = -7;
+        update();
       });
     }
 
-    sliderA11.addEventListener('input', redraw);
-    sliderA12.addEventListener('input', redraw);
-    sliderA22.addEventListener('input', redraw);
-    redraw();
-  },
-
-  // ============================================================================
-  // 2. SIMULADOR DEL TEOREMA 1 DE SEPARACIÓN DE LUENBERGER (Apéndice B.3)
-  // ============================================================================
-  initSeparatingHyperplaneTool: function() {
-    const canvas = document.getElementById('sepCanvas');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const statDelta = document.getElementById('sepDeltaStat');
-    const statVerdict = document.getElementById('sepVerdict');
-
-    // Conjunto convexo: Elipse (x1/2)^2 + x2^2 <= 1
-    const rx = 2.0;
-    const ry = 1.0;
-    let y_ext = { x: 2.8, y: 1.8 };
-    let isDragging = false;
-
-    const width = canvas.width;
-    const height = canvas.height;
-    const cx = width / 2 - 30;
-    const cy = height / 2;
-    const scale = 50; // px por unidad
-
-    function toScreen(p) { return { x: cx + p.x * scale, y: cy - p.y * scale }; }
-    function toMath(s) { return { x: (s.x - cx) / scale, y: (cy - s.y) / scale }; }
-
-    // Proyección de mínima distancia sobre la elipse (x0)
-    function findProjection(y) {
-      let bestX0 = { x: 0, y: 0 };
-      let minD = Infinity;
-      for (let t = 0; t < Math.PI * 2; t += 0.01) {
-        const ex = rx * Math.cos(t);
-        const ey = ry * Math.sin(t);
-        const d = (ex - y.x) ** 2 + (ey - y.y) ** 2;
-        if (d < minD) {
-          minD = d;
-          bestX0 = { x: ex, y: ey };
-        }
-      }
-      return { x0: bestX0, delta: Math.sqrt(minD) };
+    const btnCustom1 = document.getElementById('btn-preset-coord1');
+    if (btnCustom1) {
+      btnCustom1.addEventListener('click', () => {
+        a0Input.value = 2;
+        a1Input.value = -3;
+        a2Input.value = 5;
+        update();
+      });
     }
 
-    function render() {
-      ctx.clearRect(0, 0, width, height);
-
-      // Ejes
-      ctx.strokeStyle = 'rgba(150, 150, 150, 0.3)';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, cy); ctx.lineTo(width, cy);
-      ctx.moveTo(cx, 0); ctx.lineTo(cx, height);
-      ctx.stroke();
-
-      // Dibujar conjunto convexo C
-      ctx.beginPath();
-      ctx.ellipse(cx, cy, rx * scale, ry * scale, 0, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(59, 130, 246, 0.18)';
-      ctx.fill();
-      ctx.strokeStyle = '#2563eb';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      // Etiqueta conjunto C
-      ctx.fillStyle = '#2563eb';
-      ctx.font = 'bold 13px Inter, sans-serif';
-      ctx.fillText('Conjunto Convexo C', cx - 55, cy + 5);
-
-      const proj = findProjection(y_ext);
-      const x0 = proj.x0;
-      const delta = proj.delta;
-
-      // Vector a = x0 - y
-      const a = { x: x0.x - y_ext.x, y: x0.y - y_ext.y };
-      const ay = a.x * y_ext.x + a.y * y_ext.y;
-      const ax0 = a.x * x0.x + a.y * x0.y;
-
-      statDelta.textContent = `δ = ||x₀ - y|| = ${delta.toFixed(3)} | a = (${a.x.toFixed(2)}, ${a.y.toFixed(2)})`;
-      statVerdict.innerHTML = `<strong>Teorema 1 Verificado:</strong> aᵀy = ${ay.toFixed(2)} < inf aᵀx = aᵀx₀ = ${ax0.toFixed(2)}`;
-
-      const sy = toScreen(y_ext);
-      const sx0 = toScreen(x0);
-
-      // Segmento delta
-      ctx.strokeStyle = '#ef4444';
-      ctx.lineWidth = 2;
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-      ctx.moveTo(sy.x, sy.y);
-      ctx.lineTo(sx0.x, sx0.y);
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // Hiperplano separador (de apoyo en x0): a^T x = a^T x0
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      // Vector direccional de la recta (perpendicular a normal 'a')
-      const dir = { x: -a.y, y: a.x };
-      const t = 20; // Longitud suficientemente grande
-      const p1 = { x: x0.x + t * dir.x, y: x0.y + t * dir.y };
-      const p2 = { x: x0.x - t * dir.x, y: x0.y - t * dir.y };
-      const sp1 = toScreen(p1);
-      const sp2 = toScreen(p2);
-      ctx.moveTo(sp1.x, sp1.y);
-      ctx.lineTo(sp2.x, sp2.y);
-      ctx.stroke();
-
-      // Dibujar punto x0
-      ctx.fillStyle = '#10b981';
-      ctx.beginPath();
-      ctx.arc(sx0.x, sx0.y, 6, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.fillStyle = '#10b981';
-      ctx.fillText('x₀ (Mín. Distancia)', sx0.x + 8, sx0.y - 8);
-
-      // Dibujar punto exterior y (interactivo)
-      ctx.fillStyle = '#ef4444';
-      ctx.beginPath();
-      ctx.arc(sy.x, sy.y, 8, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.strokeStyle = '#ffffff';
-      ctx.lineWidth = 2;
-      ctx.stroke();
-      ctx.fillStyle = '#ef4444';
-      ctx.fillText('y (Exterior)', sy.x + 10, sy.y + 4);
+    const btnCustom2 = document.getElementById('btn-preset-coord2');
+    if (btnCustom2) {
+      btnCustom2.addEventListener('click', () => {
+        a0Input.value = -8;
+        a1Input.value = 0;
+        a2Input.value = 1;
+        update();
+      });
     }
 
-    canvas.addEventListener('mousedown', (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const clickS = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      const sy = toScreen(y_ext);
-      if (Math.hypot(clickS.x - sy.x, clickS.y - sy.y) < 15) {
-        isDragging = true;
-      }
-    });
-
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const rect = canvas.getBoundingClientRect();
-      const s = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      const m = toMath(s);
-      // Validar que permanezca exterior
-      if ((m.x / rx) ** 2 + (m.y / ry) ** 2 > 1.05) {
-        y_ext = m;
-        render();
-      }
-    });
-
-    window.addEventListener('mouseup', () => { isDragging = false; });
-    render();
+    update();
   },
 
-  // ============================================================================
-  // 3. CALCULADORA DE FACTORIZACIÓN LU DE GAUSS (Apéndice C)
-  // ============================================================================
-  initLUSolverTool: function() {
-    const btnSolve = document.getElementById('btnSolveLU');
-    if (!btnSolve) return;
-    const outputDiv = document.getElementById('luOutput');
+  // 2. Calculador Interactivo de la Matriz de Derivación T: P3(R) -> P2(R) (Ejemplo 17)
+  initDerivativeMatrixTool: function () {
+    const c0Input = document.getElementById('deriv-c0');
+    const c1Input = document.getElementById('deriv-c1');
+    const c2Input = document.getElementById('deriv-c2');
+    const c3Input = document.getElementById('deriv-c3');
 
-    btnSolve.addEventListener('click', () => {
-      const a11 = parseFloat(document.getElementById('m_a11').value) || 2;
-      const a12 = parseFloat(document.getElementById('m_a12').value) || 1;
-      const a13 = parseFloat(document.getElementById('m_a13').value) || 1;
-      const a21 = parseFloat(document.getElementById('m_a21').value) || 4;
-      const a22 = parseFloat(document.getElementById('m_a22').value) || 3;
-      const a23 = parseFloat(document.getElementById('m_a23').value) || 3;
-      const a31 = parseFloat(document.getElementById('m_a31').value) || 8;
-      const a32 = parseFloat(document.getElementById('m_a32').value) || 7;
-      const a33 = parseFloat(document.getElementById('m_a33').value) || 9;
+    const fxDisplay = document.getElementById('deriv-fx-display');
+    const fprimeDisplay = document.getElementById('deriv-fprime-display');
+    const multDisplay = document.getElementById('deriv-mult-display');
 
-      const b1 = parseFloat(document.getElementById('m_b1').value) || 5;
-      const b2 = parseFloat(document.getElementById('m_b2').value) || 13;
-      const b3 = parseFloat(document.getElementById('m_b3').value) || 37;
+    if (!c0Input || !c1Input || !c2Input || !c3Input) return;
 
-      let A = [[a11, a12, a13], [a21, a22, a23], [a31, a32, a33]];
-      let L = [[1, 0, 0], [0, 1, 0], [0, 0, 1]];
-      let U = JSON.parse(JSON.stringify(A));
+    function update() {
+      const c0 = parseFloat(c0Input.value) || 0;
+      const c1 = parseFloat(c1Input.value) || 0;
+      const c2 = parseFloat(c2Input.value) || 0;
+      const c3 = parseFloat(c3Input.value) || 0;
 
-      // Paso 1: Eliminar columna 1
-      const m21 = U[1][0] / U[0][0];
-      const m31 = U[2][0] / U[0][0];
-      L[1][0] = m21;
-      L[2][0] = m31;
-      for (let j = 0; j < 3; j++) {
-        U[1][j] -= m21 * U[0][j];
-        U[2][j] -= m31 * U[0][j];
+      // Derivada f'(x) = c1 + 2*c2*x + 3*c3*x^2
+      const d0 = c1;
+      const d1 = 2 * c2;
+      const d2 = 3 * c3;
+
+      if (fxDisplay) {
+        fxDisplay.innerHTML = `$$f(x) = ${c0} + ${c1}x + ${c2}x^2 + ${c3}x^3 \\implies [f]_\\beta = \\begin{pmatrix} ${c0} \\\\ ${c1} \\\\ ${c2} \\\\ ${c3} \\end{pmatrix}$$`;
       }
 
-      // Paso 2: Eliminar columna 2
-      const m32 = U[2][1] / U[1][1];
-      L[2][1] = m32;
-      for (let j = 0; j < 3; j++) {
-        U[2][j] -= m32 * U[1][j];
+      if (fprimeDisplay) {
+        fprimeDisplay.innerHTML = `$$f'(x) = ${d0} + ${d1}x + ${d2}x^2 \\implies [f']_\\gamma = \\begin{pmatrix} ${d0} \\\\ ${d1} \\\\ ${d2} \\end{pmatrix}$$`;
       }
 
-      // Solución bifásica: Ly = b
-      const y1 = b1;
-      const y2 = b2 - L[1][0] * y1;
-      const y3 = b3 - L[2][0] * y1 - L[2][1] * y2;
-
-      // Ux = y
-      const x3 = y3 / U[2][2];
-      const x2 = (y2 - U[1][2] * x3) / U[1][1];
-      const x1 = (y1 - U[0][1] * x2 - U[0][2] * x3) / U[0][0];
-
-      outputDiv.innerHTML = `
-        <div style="margin-top: 1.25rem; background: var(--bg-tertiary); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--card-border);">
-          <h4 style="color: var(--accent-primary); margin-top:0;">Resultados de la Factorización LU de Luenberger:</h4>
-          <p><strong>1. Multiplicadores de Gauss:</strong> $m_{21} = ${m21.toFixed(2)}, \\; m_{31} = ${m31.toFixed(2)}, \\; m_{32} = ${m32.toFixed(2)}$</p>
-          <div style="display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1rem 0;">
-            <div>
-              <strong>Matriz Triangular Inferior L:</strong><br>
-              $\\begin{pmatrix} 1 & 0 & 0 \\\\ ${L[1][0].toFixed(2)} & 1 & 0 \\\\ ${L[2][0].toFixed(2)} & ${L[2][1].toFixed(2)} & 1 \\end{pmatrix}$
-            </div>
-            <div>
-              <strong>Matriz Triangular Superior U:</strong><br>
-              $\\begin{pmatrix} ${U[0][0].toFixed(2)} & ${U[0][1].toFixed(2)} & ${U[0][2].toFixed(2)} \\\\ 0 & ${U[1][1].toFixed(2)} & ${U[1][2].toFixed(2)} \\\\ 0 & 0 & ${U[2][2].toFixed(2)} \\end{pmatrix}$
-            </div>
-          </div>
-          <p style="margin-top: 1rem;"><strong>2. Sustitución Progresiva (Hacia Adelante $Ly = b$):</strong> $y = (${y1.toFixed(2)}, \\; ${y2.toFixed(2)}, \\; ${y3.toFixed(2)})^T$</p>
-          <p><strong>3. Sustitución Regresiva (Hacia Atrás $Ux = y$):</strong> <span style="font-size:1.1rem; color: #10b981; font-weight:bold;">$x^* = (${x1.toFixed(2)}, \\; ${x2.toFixed(2)}, \\; ${x3.toFixed(2)})^T$</span></p>
-        </div>
-      `;
-
-      if (window.renderMathInElement) {
-        window.renderMathInElement(outputDiv, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false}
-          ]
-        });
+      if (multDisplay) {
+        multDisplay.innerHTML = `$$\\underbrace{\\begin{pmatrix} 0 & 1 & 0 & 0 \\\\ 0 & 0 & 2 & 0 \\\\ 0 & 0 & 0 & 3 \\end{pmatrix}}_{[T]_\\beta^\\gamma} \\underbrace{\\begin{pmatrix} ${c0} \\\\ ${c1} \\\\ ${c2} \\\\ ${c3} \\end{pmatrix}}_{[f]_\\beta} = \\begin{pmatrix} 0(${c0}) + 1(${c1}) + 0(${c2}) + 0(${c3}) \\\\ 0(${c0}) + 0(${c1}) + 2(${c2}) + 0(${c3}) \\\\ 0(${c0}) + 0(${c1}) + 0(${c2}) + 3(${c3}) \\end{pmatrix} = \\underbrace{\\begin{pmatrix} ${d0} \\\\ ${d1} \\\\ ${d2} \\end{pmatrix}}_{[T(f)]_\\gamma}$$`;
       }
-    });
+
+      if (window.triggerKaTeX) window.triggerKaTeX();
+    }
+
+    [c0Input, c1Input, c2Input, c3Input].forEach(inp => inp.addEventListener('input', update));
+
+    const btnPresetEx17 = document.getElementById('btn-preset-ex17');
+    if (btnPresetEx17) {
+      btnPresetEx17.addEventListener('click', () => {
+        c0Input.value = 5;
+        c1Input.value = -3;
+        c2Input.value = 4;
+        c3Input.value = 2;
+        update();
+      });
+    }
+
+    const btnPresetEx22 = document.getElementById('btn-preset-ex22');
+    if (btnPresetEx22) {
+      btnPresetEx22.addEventListener('click', () => {
+        c0Input.value = 2;
+        c1Input.value = -4;
+        c2Input.value = 1;
+        c3Input.value = 3;
+        update();
+      });
+    }
+
+    const btnPresetEx30 = document.getElementById('btn-preset-ex30');
+    if (btnPresetEx30) {
+      btnPresetEx30.addEventListener('click', () => {
+        c0Input.value = 2;
+        c1Input.value = 1;
+        c2Input.value = -3;
+        c3Input.value = 5;
+        update();
+      });
+    }
+
+    update();
+  },
+
+  // 3. Calculador de Transformación Lineal T: R^2 -> R^3 (Ejemplo 18)
+  initLinearTransformR2R3Tool: function () {
+    const a1Input = document.getElementById('r2r3-a1');
+    const a2Input = document.getElementById('r2r3-a2');
+    const directDisplay = document.getElementById('r2r3-direct-display');
+    const matrixMultDisplay = document.getElementById('r2r3-matrix-display');
+
+    if (!a1Input || !a2Input) return;
+
+    function update() {
+      const a1 = parseFloat(a1Input.value) || 0;
+      const a2 = parseFloat(a2Input.value) || 0;
+
+      // T(a1, a2) = (a1 + 3a2, 0, 2a1 - 4a2)
+      const y1 = a1 + 3 * a2;
+      const y2 = 0;
+      const y3 = 2 * a1 - 4 * a2;
+
+      if (directDisplay) {
+        directDisplay.innerHTML = `$$T(${a1}, ${a2}) = (${a1} + 3(${a2}),\\ 0,\\ 2(${a1}) - 4(${a2})) = (${y1},\\ ${y2},\\ ${y3})$$`;
+      }
+
+      if (matrixMultDisplay) {
+        matrixMultDisplay.innerHTML = `$$[T]_\\beta^\\gamma [x]_\\beta = \\begin{pmatrix} 1 & 3 \\\\ 0 & 0 \\\\ 2 & -4 \\end{pmatrix} \\begin{pmatrix} ${a1} \\\\ ${a2} \\end{pmatrix} = \\begin{pmatrix} 1(${a1}) + 3(${a2}) \\\\ 0(${a1}) + 0(${a2}) \\\\ 2(${a1}) - 4(${a2}) \\end{pmatrix} = \\begin{pmatrix} ${y1} \\\\ ${y2} \\\\ ${y3} \\end{pmatrix} = [T(x)]_\\gamma$$`;
+      }
+
+      if (window.triggerKaTeX) window.triggerKaTeX();
+    }
+
+    [a1Input, a2Input].forEach(inp => inp.addEventListener('input', update));
+
+    const btnPresetE1 = document.getElementById('btn-preset-e1');
+    if (btnPresetE1) {
+      btnPresetE1.addEventListener('click', () => {
+        a1Input.value = 1;
+        a2Input.value = 0;
+        update();
+      });
+    }
+
+    const btnPresetE2 = document.getElementById('btn-preset-e2');
+    if (btnPresetE2) {
+      btnPresetE2.addEventListener('click', () => {
+        a1Input.value = 0;
+        a2Input.value = 1;
+        update();
+      });
+    }
+
+    const btnPresetCustom = document.getElementById('btn-preset-r2r3-custom');
+    if (btnPresetCustom) {
+      btnPresetCustom.addEventListener('click', () => {
+        a1Input.value = 3;
+        a2Input.value = -2;
+        update();
+      });
+    }
+
+    update();
+  },
+
+  // 4. Calculador de Transformación de Multiplicación por la Izquierda L_A (Ejemplo 6)
+  initLeftMultiplicationTool: function () {
+    const x1Input = document.getElementById('la-x1');
+    const x2Input = document.getElementById('la-x2');
+    const x3Input = document.getElementById('la-x3');
+    const display = document.getElementById('la-display');
+
+    if (!x1Input || !x2Input || !x3Input || !display) return;
+
+    function update() {
+      const x1 = parseFloat(x1Input.value) || 0;
+      const x2 = parseFloat(x2Input.value) || 0;
+      const x3 = parseFloat(x3Input.value) || 0;
+
+      // A = [1 2 1; 0 1 2]
+      const y1 = 1 * x1 + 2 * x2 + 1 * x3;
+      const y2 = 0 * x1 + 1 * x2 + 2 * x3;
+
+      display.innerHTML = `$$L_A(x) = Ax = \\begin{pmatrix} 1 & 2 & 1 \\\\ 0 & 1 & 2 \\end{pmatrix} \\begin{pmatrix} ${x1} \\\\ ${x2} \\\\ ${x3} \\end{pmatrix} = \\begin{pmatrix} 1(${x1}) + 2(${x2}) + 1(${x3}) \\\\ 0(${x1}) + 1(${x2}) + 2(${x3}) \\end{pmatrix} = \\begin{pmatrix} ${y1} \\\\ ${y2} \\end{pmatrix}$$`;
+
+      if (window.triggerKaTeX) window.triggerKaTeX();
+    }
+
+    [x1Input, x2Input, x3Input].forEach(inp => inp.addEventListener('input', update));
+
+    const btnPresetEx23 = document.getElementById('btn-preset-ex23');
+    if (btnPresetEx23) {
+      btnPresetEx23.addEventListener('click', () => {
+        x1Input.value = 1;
+        x2Input.value = 3;
+        x3Input.value = -1;
+        update();
+      });
+    }
+
+    const btnPresetLAE1 = document.getElementById('btn-preset-la-e1');
+    if (btnPresetLAE1) {
+      btnPresetLAE1.addEventListener('click', () => {
+        x1Input.value = 1;
+        x2Input.value = 0;
+        x3Input.value = 0;
+        update();
+      });
+    }
+
+    const btnPresetLAE2 = document.getElementById('btn-preset-la-e2');
+    if (btnPresetLAE2) {
+      btnPresetLAE2.addEventListener('click', () => {
+        x1Input.value = 0;
+        x2Input.value = 1;
+        x3Input.value = 0;
+        update();
+      });
+    }
+
+    const btnPresetLAE3 = document.getElementById('btn-preset-la-e3');
+    if (btnPresetLAE3) {
+      btnPresetLAE3.addEventListener('click', () => {
+        x1Input.value = 0;
+        x2Input.value = 0;
+        x3Input.value = 1;
+        update();
+      });
+    }
+
+    update();
   }
 };

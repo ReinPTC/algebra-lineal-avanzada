@@ -1,8 +1,10 @@
-# Plan de Trabajo y Dosificación de Notas para Alumnos — Unidad 1
+# Plan de Trabajo y Dosificación de Notas para Alumnos — Álgebra Lineal Avanzada
 
-**Asignatura:** Optimización  
-**Unidad Temática I:** Herramientas para la optimización  
-**Texto Base Obligatorio:** David G. Luenberger & Yinyu Ye, *Linear and Nonlinear Programming* (4ta Ed., Springer 2016).  
+**Asignatura:** Álgebra Lineal Avanzada  
+**Semestre:** III (Tercer Semestre)  
+**Carrera:** Licenciatura en Matemática Algorítmica  
+**Unidad Académica:** Escuela Superior de Física y Matemáticas (ESFM — IPN)  
+**Texto Base Obligatorio:** Stephen H. Friedberg, Arnold J. Insel & Lawrence E. Spence, *Álgebra lineal* (1ra Edición en español, Publicaciones Cultural / CECSA / Prentice-Hall, México, 1982).  
 **Institución:** Instituto Politécnico Nacional (IPN)
 
 ---
@@ -10,19 +12,19 @@
 ## 1. Lineamientos Generales para la Elaboración de Notas
 
 ### 🎯 Propósito Pedagógico
-El objetivo de las notas individuales es fomentar en el estudiante el rigor matemático, la capacidad de síntesis, la contrastación bibliográfica crítica y la competencia computacional para implementar los conceptos de optimización en código ejecutable de Python.
+El objetivo de las notas individuales es fomentar en el estudiante el rigor matemático abstracto, la deducción lógica formal, la contrastación bibliográfica crítica y la competencia computacional algorítmica para implementar los conceptos de álgebra lineal avanzada en código verificable de Python.
 
 ### 📋 Reglas Estrictas de Entrega
 1. **Consulta de Textos Alternativos Obligatoria:**  
-   La nota debe redactarse consultando **al menos un texto diferente a Luenberger** seleccionado exclusivamente de la **Bibliografía Oficial del Programa del IPN**. Se debe contrastar la notación, definiciones y enfoque pedagógico del autor alternativo frente a Luenberger.
+   La nota debe redactarse consultando **al menos un texto diferente a Friedberg** seleccionado exclusivamente de la **Bibliografía Oficial del Programa del IPN** (Strang, Gilbert & Gilbert, Moore, Grossman, Hoffman & Kunze, Lang, Axler). Se debe contrastar la notación, definiciones y enfoque pedagógico del autor alternativo frente a Friedberg.
 2. **Estructura Requerida de Cada Reporte (Formato Markdown / PDF / Notebook):**
    * **Encabezado Académico:** Nombre del alumno, número de reporte, fecha y temas cubiertos.
    * **Marco Teórico y Definiciones Formales:** Definiciones precisas con fórmulas renderizadas en LaTeX.
    * **Demostración Analítica Rigurosa:** Desarrollo paso a paso de al menos una proposición/teorema clave (sin omitir justificaciones algebraicas).
-   * **Ejemplo Práctico Resuelto Paso a Paso:** Resolución numérica completa a mano.
-   * **Implementación Computacional en Python:** Código limpio, documentado con *docstrings*, gráficos y visualizaciones pertinentes.
+   * **Ejemplo Práctico Resuelto Paso a Paso:** Resolución matemática completa a mano.
+   * **Implementación Computacional en Python:** Código limpio, documentado con *docstrings*, cálculos matriciales y visualizaciones pertinentes.
    * **Pregunta de Reflexión Teórica:** Respuesta argumentada a la pregunta detonadora del reporte.
-   * **Bibliografía:** Citas en formato IEEE o APA especificando capítulos y páginas consultadas tanto de Luenberger como del texto alternativo oficial.
+   * **Bibliografía:** Citas en formato IEEE o APA especificando capítulos y páginas consultadas tanto de Friedberg como del texto alternativo oficial.
 
 ---
 

@@ -131,11 +131,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 7. Inicialización de Herramientas Interactivas
+  // 7. Inicialización de Herramientas Interactivas de Álgebra Lineal
   if (window.InteractiveTools) {
-    window.InteractiveTools.initQuadraticFormTool();
-    window.InteractiveTools.initSeparatingHyperplaneTool();
-    window.InteractiveTools.initLUSolverTool();
+    if (typeof window.InteractiveTools.initCoordinateVectorTool === 'function') {
+      window.InteractiveTools.initCoordinateVectorTool();
+    }
+    if (typeof window.InteractiveTools.initDerivativeMatrixTool === 'function') {
+      window.InteractiveTools.initDerivativeMatrixTool();
+    }
+    if (typeof window.InteractiveTools.initLinearTransformR2R3Tool === 'function') {
+      window.InteractiveTools.initLinearTransformR2R3Tool();
+    }
+    if (typeof window.InteractiveTools.initLeftMultiplicationTool === 'function') {
+      window.InteractiveTools.initLeftMultiplicationTool();
+    }
   }
 });
 
@@ -143,3 +152,4 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('load', () => {
   triggerKaTeX();
 });
+
