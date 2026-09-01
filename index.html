@@ -3843,6 +3843,7 @@
             <div class="formula-card" style="font-size: 1.35rem; color: var(--accent-primary);">
               $$[T]_\beta = [T_{W_1}]_{\beta_1} \oplus [T_{W_2}]_{\beta_2} \oplus \dots \oplus [T_{W_k}]_{\beta_k} = \begin{pmatrix} A_1 & O & \dots & O \\ O & A_2 & \dots & O \\ \vdots & \vdots & \ddots & \vdots \\ O & O & \dots & A_k \end{pmatrix}$$
             </div>
+            <!-- Demostración (Propuesta como ejercicio en Friedberg §5.4):
             <div class="proof-card">
               <div class="proof-header"><i>Demostración.</i></div>
               <p>
@@ -3854,9 +3855,10 @@
               </p>
               <p>
                 Al expresar $T(v_{ij})$ en términos de la base total $\beta$, los coeficientes correspondientes a todos los vectores $v_{mr} \in \beta_m$ con $m \neq i$ son idénticamente cero. Por consiguiente, la columna correspondiente a $v_{ij}$ en la matriz $A = [T]_\beta$ tiene ceros en todas las posiciones excepto en el bloque $i$-ésimo, donde contiene exactamente la columna $j$ de $A_i$. En consecuencia, $A$ es la matriz diagonal por bloques:
-                $$[T]_\beta = \begin{pmatrix} A_1 & O & \dots & O \\ O & A_2 & \dots & O \\ \vdots & \vdots & \ddots & \vdots \\ O & O & \dots & A_k \end{pmatrix} = [T_{W_1}]_{\beta_1} \oplus [T_{W_2}]_{\beta_2} \oplus \dots \oplus [T_{W_k}]_{\beta_k}.$$ <span class="qed">$\blacksquare$</span>
+                $$[T]_\beta = \begin{pmatrix} A_1 & O & \dots & O \\ O & A_2 & \dots & O \\ \vdots & \vdots & \ddots & \vdots \\ O & O & \dots & A_k \end{pmatrix} = [T_{W_1}]_{\beta_i} \oplus [T_{W_2}]_{\beta_2} \oplus \dots \oplus [T_{W_k}]_{\beta_k}.$$ <span class="qed">$\blacksquare$</span>
               </p>
             </div>
+            -->
           </div>
 
           <!-- -----------------------------------------------------------------
@@ -4113,6 +4115,7 @@
                 Para cualquier matriz $A \in M_{n \times n}(F)$, el polinomio mínimo para $A$ es exactamente el mismo que el polinomio mínimo para el operador multiplicación izquierda $L_A$.
               </p>
             </div>
+            <!-- Demostración (Propuesta como ejercicio en Friedberg §5.6):
             <div class="proof-card">
               <div class="proof-header"><i>Demostración.</i></div>
               <p>
@@ -4126,6 +4129,7 @@
                 <em>Demostración del Corolario:</em> Para $A \in M_{n \times n}(F)$, tomando el operador $L_A$ respecto a la base estándar canónica $\beta$ de $F^n$, se tiene $[L_A]_\beta = A$, por lo que el polinomio mínimo de $A$ coincide con el polinomio mínimo de $L_A$. <span class="qed">$\blacksquare$</span>
               </p>
             </div>
+            -->
           </div>
 
           <!-- -----------------------------------------------------------------
@@ -4249,6 +4253,7 @@
             <div class="formula-card" style="font-size: 1.25rem; color: var(--accent-primary);">
               $$f(t) = (-1)^n p(t) \iff \deg(p) = \dim(V) = n$$
             </div>
+            <!-- Demostración (Propuesta como ejercicio en Friedberg §5.6):
             <div class="proof-card">
               <div class="proof-header"><i>Demostración.</i></div>
               <p>
@@ -4266,6 +4271,7 @@
                 Por consiguiente, $p_0(t)$ es el polinomio mónico de menor grado que anula a $T$, lo que demuestra que $p(t) = p_0(t)$ y $\deg(p) = n = \dim(V)$. <span class="qed">$\blacksquare$</span>
               </p>
             </div>
+            -->
           </div>
 
           <div id="sec-4-1-teorema-41" class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -4461,6 +4467,7 @@
             <div class="formula-card" style="font-size: 1.25rem; color: var(--accent-primary);">
               $$E_\lambda = N(T - \lambda I) \subseteq K_\lambda \subseteq V$$
             </div>
+            <!-- Demostración (Propuesta como ejercicio en Friedberg §6.1):
             <div class="proof-card">
               <div class="proof-header"><i>Demostración.</i></div>
               <p>
@@ -4475,6 +4482,7 @@
                 Para cualquier eigenvector $x \in E_\lambda$, $(T - \lambda I)^1(x) = 0$, por lo que $x \in N(T - \lambda I) \subseteq K_\lambda$, estableciendo la inclusión $E_\lambda \subseteq K_\lambda$. <span class="qed">$\blacksquare$</span>
               </p>
             </div>
+            -->
           </div>
 
           <div class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -4748,6 +4756,7 @@
                 $$k_i = r_1 = \dim(E_{\lambda_i}) = \operatorname{nulidad}(T - \lambda_i I).$$
               </p>
             </div>
+            <!-- Demostración (Propuesta como ejercicio en Friedberg §6.2):
             <div class="proof-card">
               <div class="proof-header"><i>Demostración.</i></div>
               <p>
@@ -4766,6 +4775,7 @@
                 <em>Demostración del Corolario:</em> Para $r = 1$, los puntos del primer renglón corresponden a los vectores iniciales de cada ciclo, que son eigenvectores linealmente independientes de $E_{\lambda_i}$. Como cada ciclo aporta exactamente un punto al primer renglón, el número total de ciclos (columnas) es $k_i = r_1 = \operatorname{nulidad}(T - \lambda_i I) = \dim(E_{\lambda_i})$. <span class="qed">$\blacksquare$</span>
               </p>
             </div>
+            -->
           </div>
 
           <div class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -5046,6 +5056,7 @@
             <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0;">
               <em>Significado:</em> Dos matrices cuadradas son semejantes si y sólo si poseen los mismos eigenvalores con exactamente la misma estructura y tamaños de bloques de Jordan en cada eigenspacio generalizado (salvo por el orden en que se listen los bloques).
             </p>
+            <!-- Demostración (Propuesta como ejercicio en Friedberg §6.2):
             <div class="proof-card">
               <div class="proof-header"><i>Demostración.</i></div>
               <p>
@@ -5063,6 +5074,7 @@
                 Definiendo la matriz invertible $Q = Q_1 Q_2^{-1}$, se tiene $B = Q^{-1}AQ$, lo que demuestra que $A$ y $B$ son matrices similares ($A \sim B$). <span class="qed">$\blacksquare$</span>
               </p>
             </div>
+            -->
           </div>
 
           <!-- -----------------------------------------------------------------
