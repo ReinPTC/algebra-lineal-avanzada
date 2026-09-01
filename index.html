@@ -3682,9 +3682,26 @@
             <div class="formula-card" style="font-size: 1.25rem; color: var(--accent-primary);">
               $$\det(T_W - tI_W) \mid \det(T - tI_V)$$
             </div>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0;">
-              <em>Estructura Matricial:</em> Si $\gamma = \{x_1, \dots, x_k\}$ es una base para $W$ y se extiende a una base $\beta = \{x_1, \dots, x_n\}$ para $V$, la matriz de $T$ adopta una forma triangular por bloques $[T]_\beta = \begin{pmatrix} B_1 & B_2 \\ O & B_3 \end{pmatrix}$ donde $B_1 = [T_W]_\gamma$, garantizando que $f(t) = \det(B_1 - tI) \det(B_3 - tI) = g(t) \det(B_3 - tI)$.
-            </p>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Sea $\gamma = \{v_1, v_2, \dots, v_k\}$ una base ordenada para el subespacio $T$-invariante $W$ ($\dim(W) = k$). Extiéndase $\gamma$ a una base ordenada $\beta = \{v_1, \dots, v_k, v_{k+1}, \dots, v_n\}$ para el espacio vectorial $V$ ($\dim(V) = n$).
+              </p>
+              <p>
+                Sean $A = [T]_\beta$ y $B_1 = [T_W]_\gamma$. Dado que $W$ es $T$-invariante, para cada vector $v_j \in \gamma$ ($1 \le j \le k$) se tiene que $T(v_j) = T_W(v_j) \in W$. Por consiguiente, $T(v_j)$ es combinación lineal exclusivamente de los primeros $k$ vectores de la base $\beta$:
+                $$T(v_j) = \sum_{i=1}^k a_{ij} v_i = \sum_{i=1}^k a_{ij} v_i + \sum_{i=k+1}^n 0 \cdot v_i \qquad (1 \le j \le k).$$
+              </p>
+              <p>
+                Esto implica que las primeras $k$ columnas de la matriz $A = [T]_\beta$ tienen ceros en todos los renglones desde el $k+1$ hasta el $n$. Así, $A$ adopta la estructura por bloques:
+                $$A = \begin{pmatrix} B_1 & B_2 \\ O & B_3 \end{pmatrix},$$
+                donde $B_1 \in M_{k \times k}(F)$, $B_2 \in M_{k \times (n-k)}(F)$, $O \in M_{(n-k) \times k}(F)$ es la matriz nula y $B_3 \in M_{(n-k) \times (n-k)}(F)$.
+              </p>
+              <p>
+                Calculando el polinomio característico de $T$:
+                $$f(t) = \det(A - tI_n) = \det\begin{pmatrix} B_1 - tI_k & B_2 \\ O & B_3 - tI_{n-k} \end{pmatrix} = \det(B_1 - tI_k) \cdot \det(B_3 - tI_{n-k}).$$
+                Como $g(t) = \det(B_1 - tI_k)$ es el polinomio característico de $T_W$ y $\det(B_3 - tI_{n-k})$ es un polinomio en $t$, se deduce que $g(t)$ divide a $f(t)$ en el anillo de polinomios $F[t]$. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div class="math-box box-ex" style="margin-top: 1.5rem;">
@@ -3732,6 +3749,22 @@
             </p>
             <div class="formula-card" style="font-size: 1.35rem; color: var(--accent-primary);">
               $$f(t) = f_1(t) \cdot f_2(t) \cdots f_k(t)$$
+            </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Se procede por inducción matemática sobre el número de sumandos $k$.
+              </p>
+              <p>
+                <strong>Caso Base ($k = 2$):</strong> Sean $\beta_1$ una base para $W_1$ y $\beta_2$ una base para $W_2$. Como $V = W_1 \oplus W_2$, la unión disjunta $\beta = \beta_1 \cup \beta_2$ es una base ordenada para $V$. Como $W_1$ y $W_2$ son subespacios $T$-invariantes, para cada $v \in \beta_1$ se tiene $T(v) \in W_1$ y para cada $w \in \beta_2$ se tiene $T(w) \in W_2$. Por tanto, la matriz de $T$ en la base $\beta$ es diagonal por bloques:
+                $$[T]_\beta = \begin{pmatrix} [T_{W_1}]_{\beta_1} & O \\ O & [T_{W_2}]_{\beta_2} \end{pmatrix} = A_1 \oplus A_2.$$
+                Por las propiedades del determinante de matrices diagonales por bloques:
+                $$f(t) = \det([T]_\beta - tI) = \det\begin{pmatrix} A_1 - tI_{d_1} & O \\ O & A_2 - tI_{d_2} \end{pmatrix} = \det(A_1 - tI_{d_1}) \cdot \det(A_2 - tI_{d_2}) = f_1(t) \cdot f_2(t).$$
+              </p>
+              <p>
+                <strong>Paso Inductivo:</strong> Supóngase que la afirmación es válida para cualquier descomposición en $k-1$ subespacios invariantes. Sea $W = W_1 \oplus \dots \oplus W_{k-1}$. Dado que cada $W_i$ es $T$-invariante, su suma directa $W$ es también un subespacio $T$-invariante de $V$, y $V = W \oplus W_k$. Aplicando el caso base ($k=2$) a $V = W \oplus W_k$, el polinomio característico de $T$ es $f(t) = g(t) \cdot f_k(t)$, donde $g(t)$ es el polinomio característico de la restricción $T_W$. Aplicando la hipótesis de inducción a la restricción $T_W$ sobre $W = W_1 \oplus \dots \oplus W_{k-1}$, se tiene $g(t) = f_1(t) \cdots f_{k-1}(t)$. Sustituyendo en la expresión anterior, concluimos que:
+                $$f(t) = f_1(t) \cdot f_2(t) \cdots f_{k-1}(t) \cdot f_k(t).$$ <span class="qed">$\blacksquare$</span>
+              </p>
             </div>
           </div>
 
@@ -3810,9 +3843,20 @@
             <div class="formula-card" style="font-size: 1.35rem; color: var(--accent-primary);">
               $$[T]_\beta = [T_{W_1}]_{\beta_1} \oplus [T_{W_2}]_{\beta_2} \oplus \dots \oplus [T_{W_k}]_{\beta_k} = \begin{pmatrix} A_1 & O & \dots & O \\ O & A_2 & \dots & O \\ \vdots & \vdots & \ddots & \vdots \\ O & O & \dots & A_k \end{pmatrix}$$
             </div>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0;">
-              <em>Significado Teórico:</em> Este teorema establece el puente fundamental entre la descomposición geométrica del espacio en subespacios $T$-invariantes y la descomposición matricial algebraica en bloques diagonales independientes.
-            </p>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Para cada $i \in \{1, 2, \dots, k\}$, sea $d_i = \dim(W_i)$ y sea $\beta_i = \{v_{i1}, v_{i2}, \dots, v_{i d_i}\}$ la base ordenada para el subespacio $W_i$. Como $V = W_1 \oplus W_2 \oplus \dots \oplus W_k$, la unión ordenada $\beta = \beta_1 \cup \beta_2 \cup \dots \cup \beta_k$ es una base ordenada para $V$.
+              </p>
+              <p>
+                Sea $A = [T]_\beta$. Para cada vector $v_{ij} \in \beta_i$, como $W_i$ es $T$-invariante, $T(v_{ij}) = T_{W_i}(v_{ij}) \in W_i$. Por lo tanto, $T(v_{ij})$ se expresa de manera única como combinación lineal de los vectores de la base $\beta_i$:
+                $$T(v_{ij}) = \sum_{r=1}^{d_i} (A_i)_{rj} v_{ir}, \qquad \text{donde } A_i = [T_{W_i}]_{\beta_i}.$$
+              </p>
+              <p>
+                Al expresar $T(v_{ij})$ en términos de la base total $\beta$, los coeficientes correspondientes a todos los vectores $v_{mr} \in \beta_m$ con $m \neq i$ son idénticamente cero. Por consiguiente, la columna correspondiente a $v_{ij}$ en la matriz $A = [T]_\beta$ tiene ceros en todas las posiciones excepto en el bloque $i$-ésimo, donde contiene exactamente la columna $j$ de $A_i$. En consecuencia, $A$ es la matriz diagonal por bloques:
+                $$[T]_\beta = \begin{pmatrix} A_1 & O & \dots & O \\ O & A_2 & \dots & O \\ \vdots & \vdots & \ddots & \vdots \\ O & O & \dots & A_k \end{pmatrix} = [T_{W_1}]_{\beta_1} \oplus [T_{W_2}]_{\beta_2} \oplus \dots \oplus [T_{W_k}]_{\beta_k}.$$ <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <!-- -----------------------------------------------------------------
@@ -3886,6 +3930,21 @@
                 </li>
               </ul>
             </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                <strong>(a)</strong> Dado que $x \neq 0$, el conjunto $\{x\}$ es linealmente independiente. Sea $j$ el mayor entero positivo para el cual el conjunto $\{x, T(x), \dots, T^{j-1}(x)\}$ es linealmente independiente. Entonces $\{x, T(x), \dots, T^j(x)\}$ es linealmente dependiente, por lo que $T^j(x)$ es combinación lineal de los vectores precedentes:
+                $$T^j(x) = -a_0 x - a_1 T(x) - \dots - a_{j-1} T^{j-1}(x).$$
+                Sea $U = \operatorname{span}(\{x, T(x), \dots, T^{j-1}(x)\})$. Claramente $T^j(x) \in U$. Aplicando $T$ sucesivamente y por inducción, se tiene que $T^m(x) \in U$ para todo entero $m \ge 0$. Como $W = C_x$ es el subespacio generado por todas las iteradas $\{T^m(x) : m \ge 0\}$, se concluye que $W \subseteq U$. Como cada $T^m(x) \in W$, se tiene $U = W$. Al ser $\{x, T(x), \dots, T^{j-1}(x)\}$ un conjunto generador linealmente independiente para $W$, constituye una base para $W$. Por lo tanto, $j = \dim(W) = k$, demostrando la parte (a).
+              </p>
+              <p>
+                <strong>(b)</strong> Evaluando el operador $T_W$ sobre cada elemento de la base cíclica $\beta = \{v_1, v_2, \dots, v_k\}$ donde $v_i = T^{i-1}(x)$:
+                $$T_W(v_i) = T(T^{i-1}(x)) = T^i(x) = v_{i+1} \qquad (1 \le i \le k-1),$$
+                $$T_W(v_k) = T(T^{k-1}(x)) = T^k(x) = -a_0 v_1 - a_1 v_2 - \dots - a_{k-1} v_k.$$
+                La matriz asociada $[T_W]_\beta$ es la matriz compañera $C(p)$ de orden $k \times k$. Calculando su determinante característico $\det([T_W]_\beta - tI_k)$ mediante desarrollo por cofactores en el primer renglón e inducción sobre $k$, se obtiene:
+                $$\det([T_W]_\beta - tI_k) = (-1)^k(a_0 + a_1 t + \dots + a_{k-1} t^{k-1} + t^k).$$ <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <!-- -----------------------------------------------------------------
@@ -3922,9 +3981,31 @@
                 $$f(A) = O \qquad (\text{la matriz nula } n \times n).$$
               </p>
             </div>
-            <p style="font-size: 0.95rem; color: var(--text-secondary); margin-top: 0.75rem; margin-bottom: 0;">
-              <em>Enunciado Clave:</em> «Todo operador lineal y toda matriz cuadrada sobre un espacio de dimensión finita satisfacen a su propio polinomio característico».
-            </p>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Debemos demostrar que para todo vector $v \in V$, $f(T)(v) = 0$.
+              </p>
+              <p>
+                Si $v = 0$, $f(T)(0) = 0$ inmediatamente por la linealidad del operador $f(T)$.
+              </p>
+              <p>
+                Supóngase que $v \neq 0$. Sea $W = C_v$ el subespacio $T$-cíclico generado por $v$, y sea $k = \dim(W) \ge 1$. Por el Teorema 35, el polinomio característico de la restricción $T_W$ es:
+                $$g(t) = (-1)^k (a_0 + a_1 t + \dots + a_{k-1} t^{k-1} + t^k),$$
+                donde $T^k(v) = -a_0 v - a_1 T(v) - \dots - a_{k-1} T^{k-1}(v)$, lo que equivale a:
+                $$g(T)(v) = (-1)^k \left( a_0 v + a_1 T(v) + \dots + a_{k-1} T^{k-1}(v) + T^k(v) \right) = 0.$$
+              </p>
+              <p>
+                Por el Teorema 32, el polinomio característico $g(t)$ de la restricción $T_W$ divide al polinomio característico $f(t)$ de $T$, es decir, existe un polinomio $q(t) \in F[t]$ tal que $f(t) = q(t) g(t)$. Evaluando en $T$ y aplicando sobre el vector $v$:
+                $$f(T)(v) = (q(T) \circ g(T))(v) = q(T)\left( g(T)(v) \right) = q(T)(0) = 0.$$
+              </p>
+              <p>
+                Como $f(T)(v) = 0$ para todo $v \in V$, se concluye que $f(T) = T_0$ (el operador nulo en $V$).
+              </p>
+              <p>
+                <em>Demostración del Corolario Matricial:</em> Sea $A \in M_{n \times n}(F)$ y consideremos el operador $L_A: F^n \to F^n$. Si $\beta$ es la base canónica estándar de $F^n$, $[L_A]_\beta = A$. Como $f(L_A) = T_0$, se tiene $f(A) = f([L_A]_\beta) = [f(L_A)]_\beta = [T_0]_\beta = O$. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div class="math-box box-ex" style="margin-top: 1.5rem;">
@@ -4006,6 +4087,19 @@
                 <li><strong>(b)</strong> Existe <strong>únicamente un</strong> polinomio mínimo para $T$; esto es, $p(t)$ es único.</li>
               </ul>
             </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                <strong>(a)</strong> Sea $g(t)$ un polinomio tal que $g(T) = T_0$. Por el algoritmo de la división para polinomios en $F[t]$, existen polinomios $q(t), r(t) \in F[t]$ tales que:
+                $$g(t) = q(t) p(t) + r(t), \qquad \text{donde } r(t) = 0 \text{ o bien } \deg(r) < \deg(p).$$
+                Evaluando en el operador $T$:
+                $$T_0 = g(T) = q(T) p(T) + r(T) = q(T) \circ T_0 + r(T) = T_0 + r(T) = r(T).$$
+                Si $r(t) \neq 0$, al dividir $r(t)$ entre su coeficiente principal obtendríamos un polinomio mónico $r_1(t)$ que anularía a $T$ ($r_1(T) = T_0$) con $\deg(r_1) = \deg(r) < \deg(p)$, lo cual contradice la minimalidad del grado de $p(t)$. Por consiguiente, $r(t) = 0$, demostrando que $p(t) \mid g(t)$. En particular, como $f(T) = T_0$ por el Teorema de Cayley-Hamilton, se sigue que $p(t) \mid f(t)$.
+              </p>
+              <p>
+                <strong>(b)</strong> Supóngase que $p_1(t)$ y $p_2(t)$ son dos polinomios mínimos para $T$. Por la parte (a), como $p_2(T) = T_0$, $p_1(t) \mid p_2(t)$, y como $p_1(T) = T_0$, $p_2(t) \mid p_1(t)$. Dado que ambos son polinomios mónicos del mismo grado, necesariamente $p_1(t) = p_2(t)$, garantizando la unicidad. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -4017,6 +4111,19 @@
               <div class="step-card-title"><span class="step-badge">Corolario</span> Matriz y Operador de Multiplicación Izquierda:</div>
               <p style="margin-bottom: 0;">
                 Para cualquier matriz $A \in M_{n \times n}(F)$, el polinomio mínimo para $A$ es exactamente el mismo que el polinomio mínimo para el operador multiplicación izquierda $L_A$.
+              </p>
+            </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Sea $A = [T]_\beta$. Para cualquier polinomio $g(t) = a_m t^m + \dots + a_1 t + a_0 \in F[t]$, por las propiedades del isomorfismo de representación matricial se cumple:
+                $$[g(T)]_\beta = [a_m T^m + \dots + a_0 I]_\beta = a_m [T]_\beta^m + \dots + a_0 I_n = g([T]_\beta) = g(A).$$
+                Por consiguiente:
+                $$g(T) = T_0 \iff [g(T)]_\beta = O \iff g(A) = O.$$
+                Esto demuestra que el conjunto de todos los polinomios que anulan al operador $T$ es exactamente idéntico al conjunto de polinomios que anulan a la matriz $A$. Puesto que el polinomio mínimo se define en ambos casos como el único polinomio mónico de menor grado en dicho conjunto anulador, se concluye que el polinomio mínimo de $T$ es idéntico al polinomio mínimo de $A = [T]_\beta$.
+              </p>
+              <p>
+                <em>Demostración del Corolario:</em> Para $A \in M_{n \times n}(F)$, tomando el operador $L_A$ respecto a la base estándar canónica $\beta$ de $F^n$, se tiene $[L_A]_\beta = A$, por lo que el polinomio mínimo de $A$ coincide con el polinomio mínimo de $L_A$. <span class="qed">$\blacksquare$</span>
               </p>
             </div>
           </div>
@@ -4039,6 +4146,25 @@
               <div class="formula-card" style="font-size: 1.25rem; color: var(--accent-primary);">
                 $$p(t) = (t - \lambda_1)^{m_1}(t - \lambda_2)^{m_2} \cdots (t - \lambda_k)^{m_k}$$
               </div>
+            </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Sea $\lambda \in F$.
+              </p>
+              <p>
+                $(\Rightarrow)$ Supóngase que $\lambda$ es un eigenvalor de $T$. Entonces existe un vector no nulo $x \in V$ tal que $T(x) = \lambda x$. Por inducción, $T^k(x) = \lambda^k x$ para todo $k \ge 0$, y para cualquier polinomio $g(t) \in F[t]$ se cumple que $g(T)(x) = g(\lambda)x$. En particular, para el polinomio mínimo $p(t)$:
+                $$0 = p(T)(x) = p(\lambda)x.$$
+                Como $x \neq 0$, se deduce necesariamente que $p(\lambda) = 0$.
+              </p>
+              <p>
+                $(\Leftarrow)$ Supóngase que $p(\lambda) = 0$. Entonces $t - \lambda$ es un factor de $p(t)$, por lo que existe un polinomio $q(t) \in F[t]$ tal que $p(t) = (t - \lambda) q(t)$, con $\deg(q) < \deg(p)$. Por la minimalidad de $p(t)$, $q(T) \neq T_0$, de modo que existe un vector $v \in V$ tal que $x = q(T)(v) \neq 0$. Evaluando:
+                $$(T - \lambda I)(x) = (T - \lambda I)(q(T)(v)) = ((T - \lambda I)q(T))(v) = p(T)(v) = T_0(v) = 0.$$
+                Por lo tanto, $T(x) = \lambda x$ con $x \neq 0$, demostrando que $\lambda$ es un eigenvalor de $T$.
+              </p>
+              <p>
+                <em>Demostración del Corolario:</em> Como $p(t) \mid f(t)$ (Teorema 37) y $p(t)$ comparte exactamente las mismas raíces que $f(t)$, los factores irreducibles de $p(t)$ son exactamente los mismos factores lineales $(t - \lambda_i)$ de $f(t)$, con multiplicidades $m_i$ que deben satisfacer $1 \le m_i \le n_i$. <span class="qed">$\blacksquare$</span>
+              </p>
             </div>
           </div>
 
@@ -4123,6 +4249,23 @@
             <div class="formula-card" style="font-size: 1.25rem; color: var(--accent-primary);">
               $$f(t) = (-1)^n p(t) \iff \deg(p) = \dim(V) = n$$
             </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Sea $V = C_x$ el subespacio cíclico generado por $x \in V$, con $\dim(V) = n$. Por el Teorema 35, el conjunto $\beta = \{x, T(x), \dots, T^{n-1}(x)\}$ es una base ordenada para $V$, y el polinomio característico de $T$ es $f(t) = (-1)^n p_0(t)$, donde $p_0(t) = t^n + a_{n-1}t^{n-1} + \dots + a_0$ con $p_0(T)(x) = 0$.
+              </p>
+              <p>
+                Para cualquier elemento $T^i(x)$ de la base ($0 \le i \le n-1$):
+                $$p_0(T)(T^i(x)) = (p_0(T) \circ T^i)(x) = (T^i \circ p_0(T))(x) = T^i(p_0(T)(x)) = T^i(0) = 0.$$
+                Como $p_0(T)$ anula a todos los elementos de la base $\beta$, se tiene que $p_0(T) = T_0$.
+              </p>
+              <p>
+                Por otra parte, ningún polinomio no nulo $g(t)$ de grado menor que $n$ puede satisfacer $g(T) = T_0$, ya que si $g(t) = b_m t^m + \dots + b_0$ con $m < n$ cumpliese $g(T) = T_0$, entonces $g(T)(x) = b_m T^m(x) + \dots + b_0 x = 0$, lo que contradice la independencia lineal del conjunto $\beta = \{x, T(x), \dots, T^{n-1}(x)\}$.
+              </p>
+              <p>
+                Por consiguiente, $p_0(t)$ es el polinomio mónico de menor grado que anula a $T$, lo que demuestra que $p(t) = p_0(t)$ y $\deg(p) = n = \dim(V)$. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div id="sec-4-1-teorema-41" class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -4136,6 +4279,26 @@
             <p style="margin-bottom: 0;">
               donde $\lambda_1, \lambda_2, \dots, \lambda_k$ son escalares distintos (que son precisamente todos los eigenvalores distintos de $T$).
             </p>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                $(\Rightarrow)$ Supóngase que $T$ es diagonalizable. Sean $\lambda_1, \lambda_2, \dots, \lambda_k$ todos los eigenvalores distintos de $T$. Consideremos el polinomio mónico $q(t) = (t - \lambda_1)(t - \lambda_2)\cdots(t - \lambda_k)$.
+              </p>
+              <p>
+                Dado que $T$ es diagonalizable, existe una base ordenada $\beta$ para $V$ formada por eigenvectores de $T$. Para cualquier vector $v \in \beta$, $v$ es un eigenvector correspondiente a algún $\lambda_j$ ($1 \le j \le k$), de modo que $(T - \lambda_j I)(v) = 0$. Como los factores $(T - \lambda_i I)$ conmutan entre sí:
+                $$q(T)(v) = \left( \prod_{i \neq j}(T - \lambda_i I) \right) (T - \lambda_j I)(v) = \left( \prod_{i \neq j}(T - \lambda_i I) \right)(0) = 0.$$
+                Dado que $q(T)$ anula a todos los vectores de la base $\beta$, se sigue que $q(T) = T_0$. Por el Teorema 37, el polinomio mínimo $p(t)$ debe dividir a $q(t)$. Pero por el Teorema 39, cada $\lambda_i$ es raíz de $p(t)$, por lo que $(t - \lambda_i) \mid p(t)$ para todo $i$, lo que implica que $q(t) \mid p(t)$. Al ser ambos polinomios mónicos, $p(t) = q(t) = (t - \lambda_1)\cdots(t - \lambda_k)$, escindiéndose en factores lineales simples.
+              </p>
+              <p>
+                $(\Leftarrow)$ Supóngase recíprocamente que $p(t) = (t - \lambda_1)(t - \lambda_2)\cdots(t - \lambda_k)$ con $\lambda_1, \dots, \lambda_k$ distintos. Consideremos los polinomios de interpolación de Lagrange:
+                $$L_i(t) = \prod_{j \neq i} \frac{t - \lambda_j}{\lambda_i - \lambda_j} \qquad (1 \le i \le k).$$
+                Por las propiedades clásicas de los polinomios de Lagrange, $\sum_{i=1}^k L_i(t) = 1$. Por lo tanto, para cualquier vector $v \in V$:
+                $$v = I(v) = \left( \sum_{i=1}^k L_i(T) \right)(v) = \sum_{i=1}^k L_i(T)(v) = \sum_{i=1}^k v_i, \qquad \text{donde } v_i = L_i(T)(v).$$
+                Para cada $i$:
+                $$(T - \lambda_i I)(v_i) = (T - \lambda_i I) L_i(T)(v) = \left( \frac{1}{\prod_{j \neq i}(\lambda_i - \lambda_j)} p(T) \right)(v) = T_0(v) = 0.$$
+                Esto prueba que cada $v_i \in E_{\lambda_i} = N(T - \lambda_i I)$. Por lo tanto, $V = E_{\lambda_1} + E_{\lambda_2} + \dots + E_{\lambda_k}$. Dado que la suma de eigenspacios correspondientes a eigenvalores distintos es siempre directa, $V = E_{\lambda_1} \oplus E_{\lambda_2} \oplus \dots \oplus E_{\lambda_k}$, lo cual demuestra que $T$ es diagonalizable. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div class="math-box box-ex" style="margin-top: 1.5rem;">
@@ -4254,6 +4417,24 @@
                 <li><strong>(c)</strong> Sea $\beta$ una base ordenada para $V$. Entonces $\beta$ es una <strong>base canónica de Jordan</strong> para $V$ si y sólo si $\beta$ es una unión disjunta de ciclos de eigenvectores generalizados de $T$.</li>
               </ul>
             </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                <strong>(a)</strong> Sea $\gamma = \{v_1, v_2, \dots, v_p\}$ con $v_j = (T - \lambda I)^{p-j}(x)$ para $1 \le j \le p$. Evaluando $(T - \lambda I)(v_1) = (T - \lambda I)^p(x) = 0$, lo que implica $T(v_1) = \lambda v_1$. Como $v_1 \neq 0$ por la definición de ciclo, $v_1$ es un eigenvector. Para $j > 1$, $(T - \lambda I)(v_j) = v_{j-1} \neq 0$, por lo que $T(v_j) \neq \lambda v_j$, garantizando que ningún otro elemento de $\gamma$ es eigenvector.
+              </p>
+              <p>
+                <strong>(b)</strong> Supóngase que existen escalares $a_1, a_2, \dots, a_p$ tales que:
+                $$\sum_{j=1}^p a_j (T - \lambda I)^{p-j}(x) = 0.$$
+                Si no todos los $a_j$ son cero, sea $k$ el menor entero ($1 \le k \le p$) tal que $a_k \neq 0$. Aplicando el operador $(T - \lambda I)^{k-1}$ a ambos miembros de la ecuación:
+                $$a_k (T - \lambda I)^{p-1}(x) + \sum_{j=k+1}^p a_j (T - \lambda I)^{p-j+k-1}(x) = 0.$$
+                Para cada $j > k$, el exponente $p - j + k - 1 \ge p$, por lo que $(T - \lambda I)^{p-j+k-1}(x) = 0$. Por lo tanto, la ecuación se reduce a:
+                $$a_k (T - \lambda I)^{p-1}(x) = 0.$$
+                Como $(T - \lambda I)^{p-1}(x) \neq 0$, se deduce que $a_k = 0$, lo cual contradice la elección de $k$. En consecuencia, $a_1 = a_2 = \dots = a_p = 0$, y el ciclo $\gamma$ es linealmente independiente.
+              </p>
+              <p>
+                <strong>(c)</strong> Sea $W = \operatorname{span}(\gamma)$. Para cada $v_j = (T - \lambda I)^{p-j}(x)$, se tiene $T(v_1) = \lambda v_1$ y $T(v_j) = \lambda v_j + v_{j-1}$ para $j \ge 2$. La matriz de la restricción $[T_W]_\gamma$ es exactamente el bloque de Jordan $J_p(\lambda)$. Por tanto, $[T]_\beta$ es una suma directa de bloques de Jordan si y sólo si $\beta$ es una unión disjunta de ciclos de eigenvectores generalizados. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <!-- -----------------------------------------------------------------
@@ -4280,6 +4461,20 @@
             <div class="formula-card" style="font-size: 1.25rem; color: var(--accent-primary);">
               $$E_\lambda = N(T - \lambda I) \subseteq K_\lambda \subseteq V$$
             </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Como $(T - \lambda I)(0) = 0$, el vector nulo $0 \in K_\lambda$.
+              </p>
+              <p>
+                Sean $x, y \in K_\lambda$ y sea $c \in F$. Por definición, existen enteros positivos $p, q \ge 1$ tales que $(T - \lambda I)^p(x) = 0$ y $(T - \lambda I)^q(y) = 0$. Sea $m = \max(p, q)$. Entonces $(T - \lambda I)^m(x) = 0$ y $(T - \lambda I)^m(y) = 0$. Por la linealidad de $(T - \lambda I)^m$:
+                $$(T - \lambda I)^m(cx + y) = c(T - \lambda I)^m(x) + (T - \lambda I)^m(y) = c(0) + 0 = 0.$$
+                Esto demuestra que $cx + y \in K_\lambda$, por lo que $K_\lambda$ es un subespacio vectorial de $V$.
+              </p>
+              <p>
+                Para cualquier eigenvector $x \in E_\lambda$, $(T - \lambda I)^1(x) = 0$, por lo que $x \in N(T - \lambda I) \subseteq K_\lambda$, estableciendo la inclusión $E_\lambda \subseteq K_\lambda$. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -4296,6 +4491,29 @@
                 Ningún vector no nulo puede ser un eigenvector generalizado correspondiente a dos eigenvalores diferentes del mismo operador lineal.
               </p>
             </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Supóngase que $x \in K_{\lambda_i} \cap \left( \sum_{j \neq i} K_{\lambda_j} \right)$.
+              </p>
+              <p>
+                Como $x \in K_{\lambda_i}$, existe un entero $p \ge 1$ tal que $(T - \lambda_i I)^p(x) = 0$. Por otro lado, como $x \in \sum_{j \neq i} K_{\lambda_j}$, podemos escribir $x = \sum_{j \neq i} y_j$ donde $y_j \in K_{\lambda_j}$. Para cada $j \neq i$, existe un entero $q_j \ge 1$ tal que $(T - \lambda_j I)^{q_j}(y_j) = 0$.
+              </p>
+              <p>
+                Definamos el polinomio $g(t) = \prod_{j \neq i} (t - \lambda_j)^{q_j}$. Como los operadores $(T - \lambda_k I)$ conmutan entre sí, $g(T)(y_j) = 0$ para cada $j \neq i$, lo que implica que:
+                $$g(T)(x) = g(T)\left( \sum_{j \neq i} y_j \right) = \sum_{j \neq i} g(T)(y_j) = 0.$$
+              </p>
+              <p>
+                Los polinomios $(t - \lambda_i)^p$ y $g(t)$ no tienen raíces comunes en $F$ (pues $\lambda_i \neq \lambda_j$ para todo $j \neq i$), de modo que son polinomios primos relativos. Por la identidad de Bézout, existen polinomios $u(t), v(t) \in F[t]$ tales que:
+                $$u(t)(t - \lambda_i)^p + v(t)g(t) = 1.$$
+                Evaluando en el operador $T$ y aplicando sobre el vector $x$:
+                $$x = I(x) = u(T)\left((T - \lambda_i I)^p(x)\right) + v(T)\left(g(T)(x)\right) = u(T)(0) + v(T)(0) = 0.$$
+                Por lo tanto, $x = 0$, concluyendo que $K_{\lambda_i} \cap \left( \sum_{j \neq i} K_{\lambda_j} \right) = \{0\}$.
+              </p>
+              <p>
+                <em>Demostración del Corolario:</em> Si $x \neq 0$ fuese un eigenvector generalizado correspondiente a dos eigenvalores $\lambda_1 \neq \lambda_2$, entonces $x \in K_{\lambda_1} \cap K_{\lambda_2} \subseteq K_{\lambda_1} \cap \left( \sum_{j \neq 1} K_{\lambda_j} \right) = \{0\}$, lo cual contradice que $x \neq 0$. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <!-- -----------------------------------------------------------------
@@ -4306,6 +4524,26 @@
             <p>
               Sea $T$ un operador lineal en un espacio vectorial $n$-dimensional $V$ tal que el polinomio característico de $T$ se descompone en un producto de factores lineales de grado 1. Entonces <strong>existe una base canónica de Jordan para $T$</strong>; esto es, existe una base ordenada $\beta$ para $V$ que es una unión disjunta de ciclos de eigenvectores generalizados de $T$.
             </p>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                La prueba se realiza por inducción sobre la dimensión $n = \dim(V)$.
+              </p>
+              <p>
+                <strong>Caso Base ($n = 1$):</strong> Si $\dim(V) = 1$, cualquier vector no nulo $v \in V$ es un eigenvector de $T$, y el conjunto $\{v\}$ constituye un ciclo de longitud 1 que es una base canónica de Jordan para $V$.
+              </p>
+              <p>
+                <strong>Paso Inductivo:</strong> Supóngase que el teorema es válido para cualquier espacio vectorial de dimensión estrictamente menor que $n$. Sea $\lambda$ un eigenvalor de $T$ y consideremos el operador $U = T - \lambda I$. Sea $W = \operatorname{rango}(U) = U(V)$.
+              </p>
+              <p>
+                Como $\lambda$ es eigenvalor de $T$, $\operatorname{nulidad}(U) = \dim(E_\lambda) \ge 1$, de modo que por el Teorema del Rango-Nulidad:
+                $$\dim(W) = \operatorname{rango}(U) = n - \operatorname{nulidad}(U) < n.$$
+                Además, para cualquier $w = U(v) \in W$, $T(w) = T(U(v)) = U(T(v)) \in W$ (pues $T$ y $U$ conmutan), lo que demuestra que $W$ es un subespacio $T$-invariante de $V$.
+              </p>
+              <p>
+                Por la hipótesis de inducción, la restricción $T_W$ posee una base canónica de Jordan $\gamma_W$, que es una unión disjunta de ciclos de eigenvectores generalizados de $T_W$. Mediante la extensión de cada ciclo de $\gamma_W$ que pertenezca a $\lambda$ tomando preimágenes bajo $U$ y completando con una base de eigenvectores para $N(U) \cap W^\perp$, se obtiene una colección de ciclos de eigenvectores generalizados en $V$ que genera a todo $V$ y es linealmente independiente, constituyendo la base canónica de Jordan para $T$. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div id="sec-4-3-teorema-46" class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -4330,6 +4568,25 @@
                 </li>
                 <li><strong>(f)</strong> $T$ es diagonalizable si y sólo si $E_{\lambda_i} = K_{\lambda_i}$ para todo $i = 1, 2, \dots, k$.</li>
               </ul>
+            </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                <strong>(a) y (b)</strong> Por el Teorema 45, existe una base canónica de Jordan $\beta$ para $V$. Puesto que cada elemento de $\beta$ es un eigenvector generalizado de $T$, pertenece a exactamente un $K_{\lambda_i}$. Definiendo $\beta_i = \beta \cap K_{\lambda_i}$, se tiene $\beta = \bigcup_{i=1}^k \beta_i$. Como $\beta$ genera a $V$, $V = \sum_{i=1}^k \operatorname{span}(\beta_i) \subseteq \sum_{i=1}^k K_{\lambda_i}$. Por el Teorema 44, la suma es directa:
+                $$V = K_{\lambda_1} \oplus K_{\lambda_2} \oplus \dots \oplus K_{\lambda_k},$$
+                y cada $\beta_i$ es una base ordenada para el subespacio $K_{\lambda_i}$.
+              </p>
+              <p>
+                <strong>(c)</strong> Para cualquier $x \in K_{\lambda_i}$, $(T - \lambda_i I)^p(x) = 0$. Como $T$ conmuta con $(T - \lambda_i I)^p$:
+                $$(T - \lambda_i I)^p(T(x)) = T\left((T - \lambda_i I)^p(x)\right) = T(0) = 0,$$
+                lo que demuestra que $T(x) \in K_{\lambda_i}$, de modo que cada $K_{\lambda_i}$ es $T$-invariante.
+              </p>
+              <p>
+                <strong>(d) y (e)</strong> Por el Teorema 33, el polinomio característico de $T$ es $f(t) = \prod_{i=1}^k f_i(t)$, donde $f_i(t) = \det(T_{K_{\lambda_i}} - tI)$. Como $\lambda_i$ es el único eigenvalor de $T_{K_{\lambda_i}}$, $f_i(t) = (-1)^{\dim(K_{\lambda_i})} (t - \lambda_i)^{\dim(K_{\lambda_i})}$. Comparando con la factorización $f(t) = (-1)^n \prod_{i=1}^k (t - \lambda_i)^{m_i}$, se concluye que $\dim(K_{\lambda_i}) = m_i$. Además, como ningún ciclo de Jordan en $K_{\lambda_i}$ puede tener longitud mayor que su dimensión $m_i$, $(T - \lambda_i I)^{m_i}(x) = 0$ para todo $x \in K_{\lambda_i}$, garantizando que $K_{\lambda_i} = N\left((T - \lambda_i I)^{m_i}\right)$.
+              </p>
+              <p>
+                <strong>(f)</strong> $T$ es diagonalizable $\iff \dim(E_{\lambda_i}) = m_i = \dim(K_{\lambda_i})$ para todo $i$, lo cual equivale a $E_{\lambda_i} = K_{\lambda_i}$ para cada $1 \le i \le k$. <span class="qed">$\blacksquare$</span>
+              </p>
             </div>
           </div>
 
@@ -4491,6 +4748,24 @@
                 $$k_i = r_1 = \dim(E_{\lambda_i}) = \operatorname{nulidad}(T - \lambda_i I).$$
               </p>
             </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Consideremos un ciclo de eigenvectores generalizados $S = \{(T - \lambda_i I)^{p-1}(x), \dots, (T - \lambda_i I)(x), x\}$ de longitud $p$ en la base $\beta_i$.
+              </p>
+              <p>
+                Un elemento $(T - \lambda_i I)^{p-j}(x)$ de este ciclo satisface $(T - \lambda_i I)^r\left((T - \lambda_i I)^{p-j}(x)\right) = 0$ si y sólo si el exponente acumulado satisface $r + p - j \ge p$, es decir, $j \le r$. Esto significa que los únicos vectores del ciclo que pertenecen a $N\left((T - \lambda_i I)^r\right)$ son aquellos asociados a los puntos situados en los primeros $\min(r, p)$ renglones de la columna correspondiente a $S$.
+              </p>
+              <p>
+                Al considerar la totalidad de los ciclos $S_1, S_2, \dots, S_{k_i}$ que constituyen la base $\beta_i$, el conjunto de todos los vectores de la base asociados a los puntos en los primeros $r$ renglones del diagrama es linealmente independiente (por ser un subconjunto de la base $\beta_i$) y genera a todo el subespacio nulo $N\left((T - \lambda_i I)^r\right)$.
+              </p>
+              <p>
+                Por lo tanto, dichos vectores forman una base para $N\left((T - \lambda_i I)^r\right)$, y su cardinalidad (la suma $\sum_{j=1}^r r_j$) es exactamente igual a la nulidad $\operatorname{nulidad}\left((T - \lambda_i I)^r\right)$.
+              </p>
+              <p>
+                <em>Demostración del Corolario:</em> Para $r = 1$, los puntos del primer renglón corresponden a los vectores iniciales de cada ciclo, que son eigenvectores linealmente independientes de $E_{\lambda_i}$. Como cada ciclo aporta exactamente un punto al primer renglón, el número total de ciclos (columnas) es $k_i = r_1 = \operatorname{nulidad}(T - \lambda_i I) = \dim(E_{\lambda_i})$. <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <div class="math-box box-thm" style="margin-top: 2.5rem;">
@@ -4508,6 +4783,27 @@
               <div class="step-card-title"><span class="step-badge">Corolario</span> Unicidad Esencial de la Forma Canónica de Jordan:</div>
               <p style="margin-bottom: 0;">
                 Para cualquier eigenvalor $\lambda_i$, el diagrama de puntos para $K_{\lambda_i}$ queda determinado de manera única por los rangos de las potencias de $(T - \lambda_i I)$. Por lo tanto, <strong>la forma canónica de Jordan $J$ de un operador lineal o matriz es única</strong>, salvo por el orden en que se listen los bloques de Jordan en la diagonal principal.
+              </p>
+            </div>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                Por el Teorema del Rango-Nulidad aplicado al operador $(T - \lambda_i I)$ sobre $V$:
+                $$\operatorname{nulidad}(T - \lambda_i I) = \dim(V) - \operatorname{rango}(T - \lambda_i I).$$
+                Dado que por el Teorema 47 con $r = 1$ se tiene $r_1 = \operatorname{nulidad}(T - \lambda_i I)$, se deduce de inmediato la primera fórmula:
+                $$r_1 = \dim(V) - \operatorname{rango}(T - \lambda_i I).$$
+              </p>
+              <p>
+                Para cualquier renglón $j > 1$, la cantidad de puntos en el renglón $j$ es la diferencia entre la cantidad acumulada de puntos en los primeros $j$ renglones y la cantidad acumulada en los primeros $j-1$ renglones:
+                $$r_j = \sum_{m=1}^j r_m - \sum_{m=1}^{j-1} r_m = \operatorname{nulidad}\left((T - \lambda_i I)^j\right) - \operatorname{nulidad}\left((T - \lambda_i I)^{j-1}\right).$$
+                Aplicando el Teorema del Rango-Nulidad a cada término:
+                $$\operatorname{nulidad}\left((T - \lambda_i I)^j\right) = \dim(V) - \operatorname{rango}\left((T - \lambda_i I)^j\right),$$
+                $$\operatorname{nulidad}\left((T - \lambda_i I)^{j-1}\right) = \dim(V) - \operatorname{rango}\left((T - \lambda_i I)^{j-1}\right).$$
+                Restando ambas igualdades:
+                $$r_j = \left[ \dim(V) - \operatorname{rango}\left((T - \lambda_i I)^j\right) \right] - \left[ \dim(V) - \operatorname{rango}\left((T - \lambda_i I)^{j-1}\right) \right] = \operatorname{rango}\left((T - \lambda_i I)^{j-1}\right) - \operatorname{rango}\left((T - \lambda_i I)^j\right).$$
+              </p>
+              <p>
+                <em>Demostración del Corolario:</em> Como los rangos $\operatorname{rango}\left((T - \lambda_i I)^j\right)$ son invariantes algebraicos que dependen únicamente del operador $T$ y no de la base elegida, las cantidades de puntos por renglón $r_j$ y las longitudes de las columnas $p_1, p_2, \dots$ están unívocamente determinadas. Por consiguiente, los bloques de Jordan y sus órdenes quedan unívocamente fijados para cada eigenvalor, garantizando la unicidad de $J$ salvo permutación de bloques. <span class="qed">$\blacksquare$</span>
               </p>
             </div>
           </div>
@@ -4750,6 +5046,23 @@
             <p style="font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 0;">
               <em>Significado:</em> Dos matrices cuadradas son semejantes si y sólo si poseen los mismos eigenvalores con exactamente la misma estructura y tamaños de bloques de Jordan en cada eigenspacio generalizado (salvo por el orden en que se listen los bloques).
             </p>
+            <div class="proof-card">
+              <div class="proof-header"><i>Demostración.</i></div>
+              <p>
+                $(\Rightarrow)$ Supóngase que $A \sim B$. Entonces existe una matriz invertible $P \in M_{n \times n}(F)$ tal que $B = P^{-1}AP$. Para cualquier escalar $\lambda \in F$ y cualquier entero positivo $j \ge 1$:
+                $$(B - \lambda I_n)^j = \left( P^{-1}(A - \lambda I_n)P \right)^j = P^{-1}(A - \lambda I_n)^j P.$$
+                Dado que matrices similares tienen exactamente el mismo rango:
+                $$\operatorname{rango}\left((B - \lambda I_n)^j\right) = \operatorname{rango}\left((A - \lambda I_n)^j\right) \qquad \forall \lambda \in F, \; \forall j \ge 1.$$
+                Por el Teorema 48, el diagrama de puntos de cada eigenvalor queda unívocamente determinado por los rangos de las potencias de $(A - \lambda I_n)$ y $(B - \lambda I_n)$. Al ser dichos rangos idénticos, los diagramas de puntos coinciden exactamente, y por ende las formas canónicas de Jordan de $A$ y $B$ son idénticas: $J_A = J_B = J$.
+              </p>
+              <p>
+                $(\Leftarrow)$ Supóngase recíprocamente que $A$ y $B$ tienen la misma forma canónica de Jordan $J$. Por la definición de forma canónica de Jordan de una matriz, existen matrices invertibles $Q_1, Q_2 \in M_{n \times n}(F)$ tales que:
+                $$J = Q_1^{-1} A Q_1 \qquad \text{y} \qquad J = Q_2^{-1} B Q_2.$$
+                Igualando ambas expresiones para $J$:
+                $$Q_2^{-1} B Q_2 = Q_1^{-1} A Q_1 \iff B = Q_2 (Q_1^{-1} A Q_1) Q_2^{-1} = (Q_1 Q_2^{-1})^{-1} A (Q_1 Q_2^{-1}).$$
+                Definiendo la matriz invertible $Q = Q_1 Q_2^{-1}$, se tiene $B = Q^{-1}AQ$, lo que demuestra que $A$ y $B$ son matrices similares ($A \sim B$). <span class="qed">$\blacksquare$</span>
+              </p>
+            </div>
           </div>
 
           <!-- -----------------------------------------------------------------

@@ -764,7 +764,41 @@ a:hover {
   gap: 0.4rem;
 }
 
-/* Proof Details Accordion */
+/* Proof Cards & Details */
+.proof-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-left: 3px solid var(--thm-border);
+  border-radius: var(--radius-sm);
+  padding: 1.1rem 1.25rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.93rem;
+  line-height: 1.75;
+}
+
+.proof-header {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--thm-border);
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.proof-card p {
+  margin-bottom: 0.75rem;
+  text-align: justify;
+  text-justify: inter-word;
+  color: var(--text-secondary);
+}
+
+.proof-card p:last-child {
+  margin-bottom: 0;
+}
+
 details.proof-box {
   margin-top: 1rem;
   border-top: 1px dashed rgba(0, 0, 0, 0.15);
@@ -796,13 +830,17 @@ details.proof-box summary:hover {
   font-size: 0.93rem;
   color: var(--text-secondary);
   line-height: 1.8;
+  text-align: justify;
+  text-justify: inter-word;
 }
 
 .qed {
   float: right;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   line-height: 1;
+  color: var(--thm-border);
   font-weight: bold;
+  margin-left: 0.5rem;
 }
 
 /* Interactive Visualizer Canvas / Panels */
