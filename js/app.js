@@ -188,6 +188,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof window.InteractiveTools.initLeftMultiplicationTool === 'function') {
       window.InteractiveTools.initLeftMultiplicationTool();
     }
+    if (typeof window.InteractiveTools.initOrthogonalTransformTool === 'function') {
+      window.InteractiveTools.initOrthogonalTransformTool();
+    }
+    if (typeof window.InteractiveTools.initPositiveMatrixTool === 'function') {
+      window.InteractiveTools.initPositiveMatrixTool();
+    }
   }
 });
 

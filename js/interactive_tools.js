@@ -292,5 +292,244 @@ window.InteractiveTools = {
     }
 
     update();
+  },
+
+  // 5. Simulador Interactivo de Transformaciones Ortogonales en R^2 (Unidad 1 - Tema 1.2)
+  initOrthogonalTransformTool: function () {
+    const typeSelect = document.getElementById('ortho-type');
+    const thetaInput = document.getElementById('ortho-theta');
+    const xInput = document.getElementById('ortho-x');
+    const yInput = document.getElementById('ortho-y');
+
+    const matrixDisplay = document.getElementById('ortho-matrix-display');
+    const propertiesDisplay = document.getElementById('ortho-properties-display');
+    const vectorDisplay = document.getElementById('ortho-vector-display');
+
+    if (!typeSelect || !thetaInput || !xInput || !yInput) return;
+
+    function update() {
+      const type = typeSelect.value;
+      const deg = parseFloat(thetaInput.value) || 0;
+      const rad = (deg * Math.PI) / 180;
+      const x = parseFloat(xInput.value) || 0;
+      const y = parseFloat(yInput.value) || 0;
+
+      const cosT = Math.cos(rad);
+      const sinT = Math.sin(rad);
+
+      let a, b, c, d, detVal, typeName;
+
+      if (type === 'rotation') {
+        a = cosT;
+        b = -sinT;
+        c = sinT;
+        d = cosT;
+        detVal = 1;
+        typeName = `Rotación antihoraria R_{${deg}^\\circ}`;
+      } else {
+        a = cosT;
+        b = sinT;
+        c = sinT;
+        d = -cosT;
+        detVal = -1;
+        typeName = `Reflexión especular S_{${deg}^\\circ}`;
+      }
+
+      const tx = a * x + b * y;
+      const ty = c * x + d * y;
+
+      const normOrig = Math.sqrt(x * x + y * y);
+      const normTrans = Math.sqrt(tx * tx + ty * ty);
+
+      if (matrixDisplay) {
+        matrixDisplay.innerHTML = `$$A = \\begin{pmatrix} ${a.toFixed(4)} & ${b.toFixed(4)} \\\\ ${c.toFixed(4)} & ${d.toFixed(4)} \\end{pmatrix}, \\quad \\det(A) = ${detVal > 0 ? '+1' : '-1'}$$`;
+      }
+
+      if (propertiesDisplay) {
+        propertiesDisplay.innerHTML = `
+          <strong>Tipo:</strong> ${typeName} • <strong>Ortogonalidad:</strong> $A^T A = I_2$<br>
+          <strong>Columnas ortonormales:</strong> $\|C_1\| = 1.0000$, $\|C_2\| = 1.0000$, $C_1 \\cdot C_2 = 0.0000$
+        `;
+      }
+
+      if (vectorDisplay) {
+        vectorDisplay.innerHTML = `$$T\\begin{pmatrix} ${x} \\\\ ${y} \\end{pmatrix} = \\begin{pmatrix} ${tx.toFixed(3)} \\\\ ${ty.toFixed(3)} \\end{pmatrix}, \\quad \\|\\alpha\\| = ${normOrig.toFixed(3)}, \\quad \\|T\\alpha\\| = ${normTrans.toFixed(3)}$$`;
+      }
+
+      if (window.triggerKaTeX) window.triggerKaTeX();
+    }
+
+    [typeSelect, thetaInput, xInput, yInput].forEach(elem => elem.addEventListener('input', update));
+
+    const btn45 = document.getElementById('btn-ortho-preset-45');
+    if (btn45) {
+      btn45.addEventListener('click', () => {
+        typeSelect.value = 'rotation';
+        thetaInput.value = 45;
+        xInput.value = 3;
+        yInput.value = 4;
+        update();
+      });
+    }
+
+    const btn90 = document.getElementById('btn-ortho-preset-90');
+    if (btn90) {
+      btn90.addEventListener('click', () => {
+        typeSelect.value = 'rotation';
+        thetaInput.value = 90;
+        xInput.value = 2;
+        yInput.value = 1;
+        update();
+      });
+    }
+
+    const btnRef = document.getElementById('btn-ortho-preset-ref');
+    if (btnRef) {
+      btnRef.addEventListener('click', () => {
+        typeSelect.value = 'reflection';
+        thetaInput.value = 60;
+        xInput.value = 1;
+        yInput.value = 2;
+        update();
+      });
+    }
+
+    update();
+  },
+
+  // 6. Simulador Interactivo de Matrices Positivas & Producto A-Interno (Unidad 1 - Tema 1.4)
+  initPositiveMatrixTool: function () {
+    const aInput = document.getElementById('pos-mat-a');
+    const bInput = document.getElementById('pos-mat-b');
+    const dInput = document.getElementById('pos-mat-d');
+
+    const x1Input = document.getElementById('pos-x1');
+    const x2Input = document.getElementById('pos-x2');
+    const y1Input = document.getElementById('pos-y1');
+    const y2Input = document.getElementById('pos-y2');
+
+    const matDisplay = document.getElementById('pos-matrix-display');
+    const sylvesterDisplay = document.getElementById('pos-sylvester-display');
+    const choleskyDisplay = document.getElementById('pos-cholesky-display');
+    const innerDisplay = document.getElementById('pos-inner-display');
+
+    if (!aInput || !bInput || !dInput) return;
+
+    function update() {
+      const a = parseFloat(aInput.value) || 0;
+      const b = parseFloat(bInput.value) || 0;
+      const d = parseFloat(dInput.value) || 0;
+
+      const x1 = parseFloat(x1Input.value) || 0;
+      const x2 = parseFloat(x2Input.value) || 0;
+      const y1 = parseFloat(y1Input.value) || 0;
+      const y2 = parseFloat(y2Input.value) || 0;
+
+      const delta1 = a;
+      const delta2 = a * d - b * b;
+
+      // Eigenvalores de matriz simétrica 2x2: tr = a + d, det = delta2
+      const tr = a + d;
+      const disc = Math.max(0, tr * tr - 4 * delta2);
+      const l1 = (tr + Math.sqrt(disc)) / 2;
+      const l2 = (tr - Math.sqrt(disc)) / 2;
+
+      let clasificacion = '';
+      let colorClass = '#10b981';
+      let esDefPos = false;
+
+      if (delta1 > 0 && delta2 > 0) {
+        clasificacion = 'Definida Positiva (Admite Producto Interno)';
+        colorClass = '#10b981';
+        esDefPos = true;
+      } else if (delta1 < 0 && delta2 > 0) {
+        clasificacion = 'Definida Negativa';
+        colorClass = '#ef4444';
+      } else if (delta2 === 0 && (delta1 >= 0 && d >= 0)) {
+        clasificacion = 'Semidefinida Positiva';
+        colorClass = '#f59e0b';
+      } else if (delta2 < 0) {
+        clasificacion = 'Indefinida (Signos Opuestos)';
+        colorClass = '#8b5cf6';
+      } else {
+        clasificacion = 'Semidefinida / Indefinida';
+        colorClass = '#f59e0b';
+      }
+
+      if (matDisplay) {
+        matDisplay.innerHTML = `$$A = \\begin{pmatrix} ${a} & ${b} \\\\ ${b} & ${d} \\end{pmatrix}$$`;
+      }
+
+      if (sylvesterDisplay) {
+        sylvesterDisplay.innerHTML = `
+          <strong>Menores de Sylvester:</strong> $\\Delta_1 = ${delta1}$, $\\Delta_2 = \\det(A) = ${delta2.toFixed(3)}$<br>
+          <strong>Eigenvalores:</strong> $\\lambda_1 = ${l1.toFixed(3)}, \\lambda_2 = ${l2.toFixed(3)}$<br>
+          <span style="color: ${colorClass}; font-weight: bold; font-size: 1.05rem;">Clasificación: ${clasificacion}</span>
+        `;
+      }
+
+      if (choleskyDisplay) {
+        if (esDefPos) {
+          const q11 = Math.sqrt(a);
+          const q12 = b / q11;
+          const q22Sq = d - q12 * q12;
+          const q22 = Math.sqrt(Math.max(0, q22Sq));
+          choleskyDisplay.innerHTML = `$$A = Q^T Q \\quad \\text{con} \\quad Q = \\begin{pmatrix} ${q11.toFixed(3)} & ${q12.toFixed(3)} \\\\ 0 & ${q22.toFixed(3)} \\end{pmatrix}$$`;
+        } else {
+          choleskyDisplay.innerHTML = `<em>No admite factorización de Cholesky con diagonal real positiva (no es definida positiva).</em>`;
+        }
+      }
+
+      // Cálculo del producto interno A: <X, Y>_A = X^T A Y
+      // Y = (y1, y2)^T, A*Y = (a*y1 + b*y2, b*y1 + d*y2)^T
+      const ay1 = a * y1 + b * y2;
+      const ay2 = b * y1 + d * y2;
+      const innerProd = x1 * ay1 + x2 * ay2;
+
+      // Normas inducidas por A
+      const normXSq = x1 * (a * x1 + b * x2) + x2 * (b * x1 + d * x2);
+      const normXStr = normXSq > 0 ? Math.sqrt(normXSq).toFixed(3) : 'No definida';
+
+      if (innerDisplay) {
+        innerDisplay.innerHTML = `$$\\langle X, Y \\rangle_A = X^T A Y = ${innerProd.toFixed(3)}, \\quad \\|X\\|_A = ${normXStr}$$`;
+      }
+
+      if (window.triggerKaTeX) window.triggerKaTeX();
+    }
+
+    [aInput, bInput, dInput, x1Input, x2Input, y1Input, y2Input].forEach(elem => elem.addEventListener('input', update));
+
+    const btnPos = document.getElementById('btn-pos-preset-defpos');
+    if (btnPos) {
+      btnPos.addEventListener('click', () => {
+        aInput.value = 3;
+        bInput.value = 1;
+        dInput.value = 2;
+        update();
+      });
+    }
+
+    const btnNeg = document.getElementById('btn-pos-preset-defneg');
+    if (btnNeg) {
+      btnNeg.addEventListener('click', () => {
+        aInput.value = -3;
+        bInput.value = 1;
+        dInput.value = -2;
+        update();
+      });
+    }
+
+    const btnIndef = document.getElementById('btn-pos-preset-indef');
+    if (btnIndef) {
+      btnIndef.addEventListener('click', () => {
+        aInput.value = 1;
+        bInput.value = 3;
+        dInput.value = 1;
+        update();
+      });
+    }
+
+    update();
   }
 };
+
